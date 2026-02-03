@@ -1,6 +1,6 @@
 #3 Arithmetic Operators
 
-## Link: https://www.hackerrank.com/challenges/python-arithmetic-operators/problem?isFullScreen=true
+## Problem Statement
 
 ## Task
 
@@ -37,3 +37,7 @@ Sample Output 0
 1
 6
 Explanation 0
+
+## problem Link:
+
+https://www.hackerrank.com/challenges/python-arithmetic-operators/problem?isFullScreen=true
