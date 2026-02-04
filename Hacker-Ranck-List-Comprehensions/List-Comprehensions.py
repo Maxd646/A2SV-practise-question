@@ -4,11 +4,10 @@ if __name__ == '__main__':
     y = int(input())
     z = int(input())
     n = int(input())
-    result= [[i,j,k] for k in range(z) for j in range(y) for i in range(x)]
+    result= [[i,j,k] for k in range(z+1) for j in range(y+1) for i in range(x+1)]
     newnew=[]
-    print(result)
     for num in result:
-        if sum(num)<n:
+        if sum(num)!=n:
             newnew.append(num)
-    print(newnew)
+    print(sorted(newnew))
         
