@@ -1,93 +1,103 @@
 import os
-import sys
-
-# -------------------------
-# Usage examples:
-# python create_problem.py leetcode 1 "Two Sum"
-# python create_problem.py codeforces "Watermelon"
-# python create_problem.py hackerrank "Array Rotation"
-# python create_problem.py gfg "Binary Search"
-# -------------------------
+import subprocess
 
 def slugify(text):
-    return text.lower().replace(" ", "-")
+    return text.strip().lower().replace(" ", "-")
 
-def create_files(base, folder_name, file_name, title, platform):
-    path = os.path.join(base, folder_name)
+def multiline_input(prompt):
+    print(prompt)
+    print("(Finish by typing: END)")
+    lines = []
+    while True:
+        line = input()
+        if line.strip() == "END":
+            break
+        lines.append(line)
+    return "\n".join(lines)
+
+def create_problem(platform, number, title):
+    title_clean = title.replace(" ", "-")
+    slug = slugify(title)
+
+    if platform == "leetcode":
+        base = "LeetCode"
+        folder = f"{number}-{title_clean}"
+        filename = folder
+        platform_name = "LeetCode"
+
+    elif platform == "codeforces":
+        base = "Codeforces"
+        folder = f"codeforces-{slug}"
+        filename = folder
+        platform_name = "Codeforces"
+
+    elif platform == "hackerrank":
+        base = "HackerRank"
+        folder = f"hacker-rank-{slug}"
+        filename = folder
+        platform_name = "HackerRank"
+
+    elif platform in ["gfg", "geeksforgeeks"]:
+        base = "GeeksforGeeks"
+        folder = f"geeksforgeeks-{slug}"
+        filename = folder
+        platform_name = "GeeksforGeeks"
+
+    else:
+        print("❌ Unknown platform")
+        return
+
+    path = os.path.join(base, folder)
     os.makedirs(path, exist_ok=True)
 
-    # 1) solution file
-    solution_file = os.path.join(path, f"{file_name}.py")
-    with open(solution_file, "w", encoding="utf-8") as f:
-        f.write(f"# {title}\n# Platform: {platform}\n\n")
+    # --- INPUTS ---
+    solution_code = multiline_input("📌 Paste your SOLUTION CODE:")
+    problem_desc = multiline_input("📌 Paste PROBLEM DESCRIPTION:")
+    approach = multiline_input("📌 Paste APPROACH / LOGIC:")
+    notes = multiline_input("📌 Paste NOTES (optional):")
 
-    # 2) README
-    readme = os.path.join(path, "README.md")
-    with open(readme, "w", encoding="utf-8") as f:
+    # --- WRITE FILES ---
+    with open(os.path.join(path, f"{filename}.py"), "w", encoding="utf-8") as f:
+        f.write(f"# {title}\n# Platform: {platform_name}\n\n")
+        f.write(solution_code + "\n")
+
+    with open(os.path.join(path, "README.md"), "w", encoding="utf-8") as f:
         f.write(f"""# {title}
 
 ## 🏷 Platform
-{platform}
+{platform_name}
 
-##  Problem Statement
-(Add description here)
+## 🧠 Problem Statement
+{problem_desc}
 
-##  Approach
-(Explain idea)
+## 💡 Approach
+{approach}
 
 ## ⏱ Complexity
-Time:
-Space:
+- Time: 
+- Space:
 """)
 
-    # 3) NOTES (optional)
-    notes = os.path.join(path, "NOTES.md")
-    with open(notes, "w", encoding="utf-8") as f:
-        f.write("# Notes\n\n")
+    with open(os.path.join(path, "NOTES.md"), "w", encoding="utf-8") as f:
+        f.write(notes if notes else "# Notes\n")
 
-    print(" Created:", path)
+    print("✅ Problem created successfully!")
 
+    # --- OPEN VS CODE ---
+    try:
+        subprocess.run(["code", path], check=True)
+    except:
+        print("⚠ VS Code not found in PATH")
 
-def main():
-    if len(sys.argv) < 3:
-        print("Usage: python create_problem.py <platform> <title/number> [title]")
-        return
+# ---------------------------
+# MAIN
+# ---------------------------
+platform = input("Platform (leetcode / codeforces / hackerrank / gfg): ").lower()
 
-    platform = sys.argv[1].lower()
+number = ""
+if platform == "leetcode":
+    number = input("LeetCode Problem Number: ")
 
-    if platform == "leetcode":
-        number = sys.argv[2]
-        title = sys.argv[3]
-        name = slugify(title)
+title = input("Problem Title: ")
 
-        folder = f"{number}-{title.replace(' ', '-')}"
-        file_name = folder
-        create_files("LeetCode", folder, file_name, title, "LeetCode")
-
-    elif platform == "codeforces":
-        title = sys.argv[2]
-        name = slugify(title)
-
-        folder = f"codeforces-{name}"
-        create_files("Codeforces", folder, folder, title, "Codeforces")
-
-    elif platform == "hackerrank":
-        title = sys.argv[2]
-        name = slugify(title)
-
-        folder = f"hacker-rank-{name}"
-        create_files("HackerRank", folder, folder, title, "HackerRank")
-
-    elif platform in ["gfg", "geeksforgeeks"]:
-        title = sys.argv[2]
-        name = slugify(title)
-
-        folder = f"geeksforgeeks-{name}"
-        create_files("GeeksforGeeks", folder, folder, title, "GeeksforGeeks")
-
-    else:
-        print("Unknown platform")
-
-
-if __name__ == "__main__":
-    main()
+create_problem(platform, number, title)
