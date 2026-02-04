@@ -1,9 +1,9 @@
 # Check Equal Arrays
-# Platform: GeeksforGeeks
-
-def solve():
-    pass
-
-
-if __name__ == "__main__":
-    solve()
+class Solution:
+    def checkEqual(self, a, b) -> bool:
+        a.sort()
+        b.sort()
+        if a==b:
+            return True
+        else:
+            False
