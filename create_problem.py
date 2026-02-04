@@ -1,4 +1,4 @@
-\import os
+import os
 import subprocess
 
 def slugify(text):
@@ -40,7 +40,7 @@ Space:
     # ---- NOTES template ----
     notes_template = "# Notes\n\n- Observations\n- Mistakes\n"
 
-    # ✅ Write files with UTF-8 encoding
+    #  Write files with UTF-8 encoding
     with open(os.path.join(path, f"{filename}.py"), "w", encoding="utf-8") as f:
         f.write(solution_template)
 
@@ -50,13 +50,13 @@ Space:
     with open(os.path.join(path, "NOTES.md"), "w", encoding="utf-8") as f:
         f.write(notes_template)
 
-    print("✅ Created:", path)
+    print(" Created:", path)
 
     # --- Open VS Code automatically ---
     try:
         subprocess.run(["code", path])
     except:
-        print("⚠ VS Code not found in PATH, open manually")
+        print(" VS Code not found in PATH, open manually")
 
 # ------------------------
 # MAIN
@@ -90,5 +90,4 @@ elif platform in ["gfg", "geeksforgeeks"]:
     create_files("GeeksforGeeks", folder, folder, title, "GeeksforGeeks")
 
 else:
-    print("❌ Unknown platform")
-cle
+    print(" Unknown platform")
