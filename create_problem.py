@@ -13,30 +13,27 @@ def create_files(base, folder, filename, title, platform):
 # Platform: {platform}
 
 class Solution:
-    def findDuplicate(self, paths: List[str]) -> List[List[str]]:
+    def subdomainVisits(self, cpdomains: List[str]) -> List[str]:
         result=[]
-        seen=defaultdict(list)
-        for ch in paths:
-            arra=ch.split()
-            root=arra[0]
-            for cha in arra[1:]:
-                i=j=0
-                name=title=""
-                block=False
-                while i<len(cha):
-                    if cha[i]=="(":
-                        j=i
-                        title=cha[0:j]
-                        block=True
-                    elif block and cha[i]==")":
-                        name=cha[j+1:i]
-                    i+=1
-                seen[name].append(root+"/"+title)
 
-        for num in seen.values():
-            if len(num)>1:
-                result.append(num)
+        seen= Counter()
+
+        for ch in cpdomains:
+
+            arra=ch.split()
+            num= arra[0]
+            arr1=arra[1].split(".")
+
+            for i in range(len(arr1)-1, -1, -1):
+
+                seen[".".join(arr1[i:len(arr1)])]+=int(num)
+
+        for ch, num in seen.items():
+
+            result.append(str(num) + " " +ch)
+
         return result
+
 
 """
 
@@ -47,47 +44,40 @@ class Solution:
 {platform}
 
 ## Problem Statement
-Given a list paths of directory info, including the directory path, and all the files with contents in this directory, return all the duplicate files in the file system in terms of their paths. You may return the answer in any order.
 
-A group of duplicate files consists of at least two files that have the same content.
+811. Subdomain Visit Count
 
-A single directory info string in the input list has the following format:
+A website domain "discuss.leetcode.com" consists of various subdomains. At the top level, we have "com", at the next level, we have "leetcode.com" and at the lowest level, "discuss.leetcode.com". When we visit a domain like "discuss.leetcode.com", we will also visit the parent domains "leetcode.com" and "com" implicitly.
 
-"root/d1/d2/.../dm f1.txt(f1_content) f2.txt(f2_content) ... fn.txt(fn_content)"
-It means there are n files (f1.txt, f2.txt ... fn.txt) with content (f1_content, f2_content ... fn_content) respectively in the directory "root/d1/d2/.../dm". Note that n >= 1 and m >= 0. If m = 0, it means the directory is just the root directory.
+A count-paired domain is a domain that has one of the two formats "rep d1.d2.d3" or "rep d1.d2" where rep is the number of visits to the domain and d1.d2.d3 is the domain itself.
 
-The output is a list of groups of duplicate file paths. For each group, it contains all the file paths of the files that have the same content. A file path is a string that has the following format:
+For example, "9001 discuss.leetcode.com" is a count-paired domain that indicates that discuss.leetcode.com was visited 9001 times.
+Given an array of count-paired domains cpdomains, return an array of the count-paired domains of each subdomain in the input. You may return the answer in any order.
 
-"directory_path/file_name.txt"
  
 
 Example 1:
 
-Input: paths = ["root/a 1.txt(abcd) 2.txt(efgh)","root/c 3.txt(abcd)","root/c/d 4.txt(efgh)","root 4.txt(efgh)"]
-Output: [["root/a/2.txt","root/c/d/4.txt","root/4.txt"],["root/a/1.txt","root/c/3.txt"]]
+Input: cpdomains = ["9001 discuss.leetcode.com"]
+Output: ["9001 leetcode.com","9001 discuss.leetcode.com","9001 com"]
+Explanation: We only have one website domain: "discuss.leetcode.com".
+As discussed above, the subdomain "leetcode.com" and "com" will also be visited. So they will all be visited 9001 times.
 Example 2:
 
-Input: paths = ["root/a 1.txt(abcd) 2.txt(efgh)","root/c 3.txt(abcd)","root/c/d 4.txt(efgh)"]
-Output: [["root/a/2.txt","root/c/d/4.txt"],["root/a/1.txt","root/c/3.txt"]]
+Input: cpdomains = ["900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"]
+Output: ["901 mail.com","50 yahoo.com","900 google.mail.com","5 wiki.org","5 org","1 intel.mail.com","951 com"]
+Explanation: We will visit "google.mail.com" 900 times, "yahoo.com" 50 times, "intel.mail.com" once and "wiki.org" 5 times.
+For the subdomains, we will visit "mail.com" 900 + 1 = 901 times, "com" 900 + 50 + 1 = 951 times, and "org" 5 times.
  
 
 Constraints:
 
-1 <= paths.length <= 2 * 104
-1 <= paths[i].length <= 3000
-1 <= sum(paths[i].length) <= 5 * 105
-paths[i] consist of English letters, digits, '/', '.', '(', ')', and ' '.
-You may assume no files or directories share the same name in the same directory.
-You may assume each given directory info represents a unique directory. A single blank space separates the directory path and file info.
- 
+1 <= cpdomain.length <= 100
+1 <= cpdomain[i].length <= 100
+cpdomain[i] follows either the "repi d1i.d2i.d3i" format or the "repi d1i.d2i" format.
+repi is an integer in the range [1, 104].
+d1i, d2i, and d3i consist of lowercase English letters.
 
-Follow up:
-
-Imagine you are given a real file system, how will you search files? DFS or BFS?
-If the file content is very large (GB level), how will you modify your solution?
-If you can only read the file by 1kb each time, how will you modify your solution?
-What is the time complexity of your modified solution? What is the most time-consuming part and memory-consuming part of it? How to optimize?
-How to make sure the duplicated files you find are not false positive?
 
 ## Approach
 Explain your idea here.
