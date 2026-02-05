@@ -29,7 +29,4 @@ class Solution:
                 result.append(new)
                 new=""
         return result
-                
 
-
-        return result
