@@ -7,7 +7,6 @@ class Solution:
         result={}
         minn=float("inf")
         for i in range(len(list2)):
-            index=0
             if list2[i] in seen:
                 result[list2[i]]=i+seen2[list2[i]]
                 minn=min(minn, i+seen2[list2[i]])
