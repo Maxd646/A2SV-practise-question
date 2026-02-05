@@ -13,18 +13,29 @@ def create_files(base, folder, filename, title, platform):
 # Platform: {platform}
 
 class Solution:
-    def countCharacters(self, words: List[str], chars: str) -> int:
-        seen=Counter(chars)
-        result=0
-        for ch in words:
-            found =True
-            seen2=Counter(ch)
-            for i in range(len(ch)):
-                if ch[i] not in seen or seen2[ch[i]]>seen[ch[i]]:
-                    found=False
-                    break
-            if found:
-                result+=len(ch)
+    def findDuplicate(self, paths: List[str]) -> List[List[str]]:
+        result=[]
+        seen=defaultdict(list)
+        for ch in paths:
+            arra=ch.split()
+            root=arra[0]
+            for cha in arra[1:]:
+                i=j=0
+                name=title=""
+                block=False
+                while i<len(cha):
+                    if cha[i]=="(":
+                        j=i
+                        title=cha[0:j]
+                        block=True
+                    elif block and cha[i]==")":
+                        name=cha[j+1:i]
+                    i+=1
+                seen[name].append(root+"/"+title)
+
+        for num in seen.values():
+            if len(num)>1:
+                result.append(num)
         return result
 
 """
@@ -36,31 +47,47 @@ class Solution:
 {platform}
 
 ## Problem Statement
-You are given an array of strings words and a string chars.
+Given a list paths of directory info, including the directory path, and all the files with contents in this directory, return all the duplicate files in the file system in terms of their paths. You may return the answer in any order.
 
-A string is good if it can be formed by characters from chars (each character can only be used once for each word in words).
+A group of duplicate files consists of at least two files that have the same content.
 
-Return the sum of lengths of all good strings in words.
+A single directory info string in the input list has the following format:
 
+"root/d1/d2/.../dm f1.txt(f1_content) f2.txt(f2_content) ... fn.txt(fn_content)"
+It means there are n files (f1.txt, f2.txt ... fn.txt) with content (f1_content, f2_content ... fn_content) respectively in the directory "root/d1/d2/.../dm". Note that n >= 1 and m >= 0. If m = 0, it means the directory is just the root directory.
+
+The output is a list of groups of duplicate file paths. For each group, it contains all the file paths of the files that have the same content. A file path is a string that has the following format:
+
+"directory_path/file_name.txt"
  
 
 Example 1:
 
-Input: words = ["cat","bt","hat","tree"], chars = "atach"
-Output: 6
-Explanation: The strings that can be formed are "cat" and "hat" so the answer is 3 + 3 = 6.
+Input: paths = ["root/a 1.txt(abcd) 2.txt(efgh)","root/c 3.txt(abcd)","root/c/d 4.txt(efgh)","root 4.txt(efgh)"]
+Output: [["root/a/2.txt","root/c/d/4.txt","root/4.txt"],["root/a/1.txt","root/c/3.txt"]]
 Example 2:
 
-Input: words = ["hello","world","leetcode"], chars = "welldonehoneyr"
-Output: 10
-Explanation: The strings that can be formed are "hello" and "world" so the answer is 5 + 5 = 10.
+Input: paths = ["root/a 1.txt(abcd) 2.txt(efgh)","root/c 3.txt(abcd)","root/c/d 4.txt(efgh)"]
+Output: [["root/a/2.txt","root/c/d/4.txt"],["root/a/1.txt","root/c/3.txt"]]
  
 
 Constraints:
 
-1 <= words.length <= 1000
-1 <= words[i].length, chars.length <= 100
-words[i] and chars consist of lowercase English letters.
+1 <= paths.length <= 2 * 104
+1 <= paths[i].length <= 3000
+1 <= sum(paths[i].length) <= 5 * 105
+paths[i] consist of English letters, digits, '/', '.', '(', ')', and ' '.
+You may assume no files or directories share the same name in the same directory.
+You may assume each given directory info represents a unique directory. A single blank space separates the directory path and file info.
+ 
+
+Follow up:
+
+Imagine you are given a real file system, how will you search files? DFS or BFS?
+If the file content is very large (GB level), how will you modify your solution?
+If you can only read the file by 1kb each time, how will you modify your solution?
+What is the time complexity of your modified solution? What is the most time-consuming part and memory-consuming part of it? How to optimize?
+How to make sure the duplicated files you find are not false positive?
 
 ## Approach
 Explain your idea here.
