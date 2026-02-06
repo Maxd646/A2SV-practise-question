@@ -13,13 +13,12 @@ def create_files(base, folder, filename, title, platform):
 # Platform: {platform}
 
 class Solution:
-    def majorityElement(self, nums: List[int]) -> List[int]:
-        seen= Counter(nums)
-        result=[]
-        for ch, num in seen.items():
-            if num>len(nums)/3:
-                result.append(ch)
+    def singleNumber(self, nums: List[int]) -> int:
+        result=0
+        for i in range(len(nums)):
+            result^=nums[i]
         return result
+        
 """
 
     # ---- README template ----
@@ -28,39 +27,46 @@ class Solution:
 ## Platform
 {platform}
 
-## 229. Majority Element II
-Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times.
+## 136. Single Number
+
+Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+
+You must implement a solution with a linear runtime complexity and use only constant extra space.
 
  
 
 Example 1:
 
-Input: nums = [3,2,3]
-Output: [3]
+Input: nums = [2,2,1]
+
+Output: 1
+
 Example 2:
 
-Input: nums = [1]
-Output: [1]
+Input: nums = [4,1,2,1,2]
+
+Output: 4
+
 Example 3:
 
-Input: nums = [1,2]
-Output: [1,2]
+Input: nums = [1]
+
+Output: 1
+
  
 
 Constraints:
 
-1 <= nums.length <= 5 * 104
--109 <= nums[i] <= 109
- 
-
-Follow up: Could you solve the problem in linear time and in O(1) space?
+1 <= nums.length <= 3 * 104
+-3 * 104 <= nums[i] <= 3 * 104
+Each element in the array appears twice except for one element which appears only once.
 
 ## Approach
-Sorting, hashing
+Bit manupation -> for fastes one
 
 ## Complexity
 Time:O(n)
-Space:O(n)
+Space:O(1)
 """
 
     # ---- NOTES template ----
