@@ -12,28 +12,20 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 
-class Solution:
-    def subdomainVisits(self, cpdomains: List[str]) -> List[str]:
-        result=[]
-
-        seen= Counter()
-
-        for ch in cpdomains:
-
-            arra=ch.split()
-            num= arra[0]
-            arr1=arra[1].split(".")
-
-            for i in range(len(arr1)-1, -1, -1):
-
-                seen[".".join(arr1[i:len(arr1)])]+=int(num)
-
-        for ch, num in seen.items():
-
-            result.append(str(num) + " " +ch)
-
-        return result
-
+n, m= map(int, input().split())
+name=input().strip()
+seen = 
+for a in name:
+    seen[a]=a
+for _ in range(m):
+    s, t= input().split()
+    for ch in seen:
+        if seen[ch]==s:
+            seen[ch]=t
+        elif seen[ch]==t:
+            seen[ch]=s
+answer= "".join(seen[ch] for ch in name)
+print(answer)
 
 """
 
@@ -45,46 +37,56 @@ class Solution:
 
 ## Problem Statement
 
-811. Subdomain Visit Count
+B. Rebranding
+time limit per test2 seconds
+memory limit per test256 megabytes
+The name of one small but proud corporation consists of n lowercase English letters. The Corporation has decided to try rebranding — an active marketing strategy, that includes a set of measures to change either the brand (both for the company and the goods it produces) or its components: the name, the logo, the slogan. They decided to start with the name.
 
-A website domain "discuss.leetcode.com" consists of various subdomains. At the top level, we have "com", at the next level, we have "leetcode.com" and at the lowest level, "discuss.leetcode.com". When we visit a domain like "discuss.leetcode.com", we will also visit the parent domains "leetcode.com" and "com" implicitly.
+For this purpose the corporation has consecutively hired m designers. Once a company hires the i-th designer, he immediately contributes to the creation of a new corporation name as follows: he takes the newest version of the name and replaces all the letters xi by yi, and all the letters yi by xi. This results in the new version. It is possible that some of these letters do no occur in the string. It may also happen that xi coincides with yi. The version of the name received after the work of the last designer becomes the new name of the corporation.
 
-A count-paired domain is a domain that has one of the two formats "rep d1.d2.d3" or "rep d1.d2" where rep is the number of visits to the domain and d1.d2.d3 is the domain itself.
+Manager Arkady has recently got a job in this company, but is already soaked in the spirit of teamwork and is very worried about the success of the rebranding. Naturally, he can't wait to find out what is the new name the Corporation will receive.
 
-For example, "9001 discuss.leetcode.com" is a count-paired domain that indicates that discuss.leetcode.com was visited 9001 times.
-Given an array of count-paired domains cpdomains, return an array of the count-paired domains of each subdomain in the input. You may return the answer in any order.
+Satisfy Arkady's curiosity and tell him the final version of the name.
 
- 
+Input
+The first line of the input contains two integers n and m (1 ≤ n, m ≤ 200 000) — the length of the initial name and the number of designers hired, respectively.
 
-Example 1:
+The second line consists of n lowercase English letters and represents the original name of the corporation.
 
-Input: cpdomains = ["9001 discuss.leetcode.com"]
-Output: ["9001 leetcode.com","9001 discuss.leetcode.com","9001 com"]
-Explanation: We only have one website domain: "discuss.leetcode.com".
-As discussed above, the subdomain "leetcode.com" and "com" will also be visited. So they will all be visited 9001 times.
-Example 2:
+Next m lines contain the descriptions of the designers' actions: the i-th of them contains two space-separated lowercase English letters xi and yi.
 
-Input: cpdomains = ["900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"]
-Output: ["901 mail.com","50 yahoo.com","900 google.mail.com","5 wiki.org","5 org","1 intel.mail.com","951 com"]
-Explanation: We will visit "google.mail.com" 900 times, "yahoo.com" 50 times, "intel.mail.com" once and "wiki.org" 5 times.
-For the subdomains, we will visit "mail.com" 900 + 1 = 901 times, "com" 900 + 50 + 1 = 951 times, and "org" 5 times.
- 
+Output
+Print the new name of the corporation.
 
-Constraints:
+Examples
+InputCopy
+6 1
+police
+p m
+OutputCopy
+molice
+InputCopy
+11 6
+abacabadaba
+a b
+b c
+a d
+e g
+f a
+b b
+OutputCopy
+cdcbcdcfcdc
+Note
+In the second sample the name of the corporation consecutively changes as follows:
 
-1 <= cpdomain.length <= 100
-1 <= cpdomain[i].length <= 100
-cpdomain[i] follows either the "repi d1i.d2i.d3i" format or the "repi d1i.d2i" format.
-repi is an integer in the range [1, 104].
-d1i, d2i, and d3i consist of lowercase English letters.
 
 
 ## Approach
-Explain your idea here.
+Hashing
 
 ## Complexity
-Time:
-Space:
+Time:O(1)
+Space:O(n+m)
 """
 
     # ---- NOTES template ----
