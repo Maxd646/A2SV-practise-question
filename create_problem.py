@@ -11,17 +11,15 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-class Solution:
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        strs.sort()
-        seen= defaultdict(list)
-        for ch in strs:
-            nn= list(ch)
-            nn.sort()
-            seen["".join(nn)].append(ch)
-        result= [valu for ch, valu in seen.items()]
-        return result      
 
+class Solution:
+    def majorityElement(self, nums: List[int]) -> List[int]:
+        seen= Counter(nums)
+        result=[]
+        for ch, num in seen.items():
+            if num>len(nums)/3:
+                result.append(ch)
+        return result
 """
 
     # ---- README template ----
@@ -30,51 +28,39 @@ class Solution:
 ## Platform
 {platform}
 
-## 49. Group Anagrams
-
-## Problem Statement
-
-Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+## 229. Majority Element II
+Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times.
 
  
 
 Example 1:
 
-Input: strs = ["eat","tea","tan","ate","nat","bat"]
-
-Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
-
-Explanation:
-
-There is no string in strs that can be rearranged to form "bat".
-The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
-The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.
+Input: nums = [3,2,3]
+Output: [3]
 Example 2:
 
-Input: strs = [""]
-
-Output: [[""]]
-
+Input: nums = [1]
+Output: [1]
 Example 3:
 
-Input: strs = ["a"]
-
-Output: [["a"]]
-
+Input: nums = [1,2]
+Output: [1,2]
  
 
 Constraints:
 
-1 <= strs.length <= 104
-0 <= strs[i].length <= 100
-strs[i] consists of lowercase English letters.
+1 <= nums.length <= 5 * 104
+-109 <= nums[i] <= 109
+ 
+
+Follow up: Could you solve the problem in linear time and in O(1) space?
 
 ## Approach
 Sorting, hashing
 
 ## Complexity
 Time:O(n)
-Space:O(n^2logn)
+Space:O(n)
 """
 
     # ---- NOTES template ----
