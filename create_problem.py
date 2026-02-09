@@ -13,9 +13,18 @@ def create_files(base, folder, filename, title, platform):
 # Platform: {platform}
 
 class Solution:
-    def sumOfThree(self, num: int) -> List[int]:
-        return [] if num%3!=0 else [num//3-1, num//3, num//3+1]
-               
+    def sumEvenAfterQueries(self, nums: List[int], queries: List[List[int]]) -> List[int]:
+        result= []
+        summ=sum(num for num in nums if num%2==0)
+        for val, i in queries:
+            if nums[i]%2==0:
+                summ-=nums[i]
+            nums[i]=nums[i]+val
+            if nums[i]%2==0:
+                summ+=nums[i]
+            result.append(summ)
+        return result
+           
 """
 
     # ---- README template ----
@@ -24,28 +33,39 @@ class Solution:
 ## Platform
 {platform}
 
-## 2177. Find Three Consecutive Integers That Sum to a Given Number
+## 985. Sum of Even Numbers After Queries
 
-Given an integer num, return three consecutive integers (as a sorted array) that sum to num. If num cannot be expressed as the sum of three consecutive integers, return an empty array.
+
+You are given an integer array nums and an array queries where queries[i] = [vali, indexi].
+
+For each query i, first, apply nums[indexi] = nums[indexi] + vali, then print the sum of the even values of nums.
+
+Return an integer array answer where answer[i] is the answer to the ith query.
 
  
 
 Example 1:
 
-Input: num = 33
-Output: [10,11,12]
-Explanation: 33 can be expressed as 10 + 11 + 12 = 33.
-10, 11, 12 are 3 consecutive integers, so we return [10, 11, 12].
+Input: nums = [1,2,3,4], queries = [[1,0],[-3,1],[-4,0],[2,3]]
+Output: [8,6,2,4]
+Explanation: At the beginning, the array is [1,2,3,4].
+After adding 1 to nums[0], the array is [2,2,3,4], and the sum of even values is 2 + 2 + 4 = 8.
+After adding -3 to nums[1], the array is [2,-1,3,4], and the sum of even values is 2 + 4 = 6.
+After adding -4 to nums[0], the array is [-2,-1,3,4], and the sum of even values is -2 + 4 = 2.
+After adding 2 to nums[3], the array is [-2,-1,3,6], and the sum of even values is -2 + 6 = 4.
 Example 2:
 
-Input: num = 4
-Output: []
-Explanation: There is no way to express 4 as the sum of 3 consecutive integers.
+Input: nums = [1], queries = [[4,0]]
+Output: [0]
  
 
 Constraints:
 
-0 <= num <= 1015
+1 <= nums.length <= 104
+-104 <= nums[i] <= 104
+1 <= queries.length <= 104
+-104 <= vali <= 104
+0 <= indexi < nums.length
 
 """
 
