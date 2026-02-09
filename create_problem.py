@@ -13,12 +13,28 @@ def create_files(base, folder, filename, title, platform):
 # Platform: {platform}
 
 class Solution:
-    def singleNumber(self, nums: List[int]) -> int:
-        result=0
-        for i in range(len(nums)):
-            result^=nums[i]
-        return result
-        
+    def intToRoman(self, num: int) -> str:
+        vals = [
+            (1000, "M"),
+            (900, "CM"),
+            (500, "D"),
+            (400, "CD"),
+            (100, "C"),
+            (90, "XC"),
+            (50, "L"),
+            (40, "XL"),
+            (10, "X"),
+            (9, "IX"),
+            (5, "V"),
+            (4, "IV"),
+            (1, "I"),]
+        res = ""
+        for v, s in vals:
+            while num >= v:
+                res += s
+                num -= v
+        return res
+            
 """
 
     # ---- README template ----
@@ -27,46 +43,67 @@ class Solution:
 ## Platform
 {platform}
 
-## 136. Single Number
+## 12. Integer to Roman
 
-Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+Seven different symbols represent Roman numerals with the following values:
 
-You must implement a solution with a linear runtime complexity and use only constant extra space.
+Symbol	Value
+I	1
+V	5
+X	10
+L	50
+C	100
+D	500
+M	1000
+Roman numerals are formed by appending the conversions of decimal place values from highest to lowest. Converting a decimal place value into a Roman numeral has the following rules:
+
+If the value does not start with 4 or 9, select the symbol of the maximal value that can be subtracted from the input, append that symbol to the result, subtract its value, and convert the remainder to a Roman numeral.
+If the value starts with 4 or 9 use the subtractive form representing one symbol subtracted from the following symbol, for example, 4 is 1 (I) less than 5 (V): IV and 9 is 1 (I) less than 10 (X): IX. Only the following subtractive forms are used: 4 (IV), 9 (IX), 40 (XL), 90 (XC), 400 (CD) and 900 (CM).
+Only powers of 10 (I, X, C, M) can be appended consecutively at most 3 times to represent multiples of 10. You cannot append 5 (V), 50 (L), or 500 (D) multiple times. If you need to append a symbol 4 times use the subtractive form.
+Given an integer, convert it to a Roman numeral.
 
  
 
 Example 1:
 
-Input: nums = [2,2,1]
+Input: num = 3749
 
-Output: 1
+Output: "MMMDCCXLIX"
 
+Explanation:
+
+3000 = MMM as 1000 (M) + 1000 (M) + 1000 (M)
+ 700 = DCC as 500 (D) + 100 (C) + 100 (C)
+  40 = XL as 10 (X) less of 50 (L)
+   9 = IX as 1 (I) less of 10 (X)
+Note: 49 is not 1 (I) less of 50 (L) because the conversion is based on decimal places
 Example 2:
 
-Input: nums = [4,1,2,1,2]
+Input: num = 58
 
-Output: 4
+Output: "LVIII"
 
+Explanation:
+
+50 = L
+ 8 = VIII
 Example 3:
 
-Input: nums = [1]
+Input: num = 1994
 
-Output: 1
+Output: "MCMXCIV"
 
+Explanation:
+
+1000 = M
+ 900 = CM
+  90 = XC
+   4 = IV
  
 
 Constraints:
 
-1 <= nums.length <= 3 * 104
--3 * 104 <= nums[i] <= 3 * 104
-Each element in the array appears twice except for one element which appears only once.
-
-## Approach
-Bit manupation -> for fastes one
-
-## Complexity
-Time:O(n)
-Space:O(1)
+1 <= num <= 3999
 """
 
     # ---- NOTES template ----
