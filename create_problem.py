@@ -12,9 +12,14 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def restoreString(self, s: str, indices: List[int]) -> str:
-        meber= dict(zip(indices, list(s) ))
-        return "".join(meber[i] for i in range(len(s)))     
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        seen= dict()
+        for i in range(len(nums)):
+            num= target-nums[i]
+            if num in seen:
+                return [seen[num], i]
+            seen[nums[i]]=i
+        return []     
 """
 
     # ---- README template ----
@@ -23,35 +28,40 @@ class Solution:
 ## Platform
 {platform}
 
-## 1528. Shuffle String
+## 1. Two Sum
 
-You are given a string s and an integer array indices of the same length. The string s will be shuffled such that the character at the ith position moves to indices[i] in the shuffled string.
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 
-Return the shuffled string.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+You can return the answer in any order.
 
  
 
 Example 1:
 
-
-Input: s = "codeleet", indices = [4,5,6,7,0,2,1,3]
-Output: "leetcode"
-Explanation: As shown, "codeleet" becomes "leetcode" after shuffling.
+Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
 Example 2:
 
-Input: s = "abc", indices = [0,1,2]
-Output: "abc"
-Explanation: After shuffling, each character remains in its position.
+Input: nums = [3,2,4], target = 6
+Output: [1,2]
+Example 3:
+
+Input: nums = [3,3], target = 6
+Output: [0,1]
  
 
 Constraints:
 
-s.length == indices.length == n
-1 <= n <= 100
-s consists of only lowercase English letters.
-0 <= indices[i] < n
-All values of indices are unique.
+2 <= nums.length <= 104
+-109 <= nums[i] <= 109
+-109 <= target <= 109
+Only one valid answer exists.
+ 
 
+Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
 
 
 """
