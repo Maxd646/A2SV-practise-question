@@ -13,14 +13,8 @@ def create_files(base, folder, filename, title, platform):
 # Platform: {platform}
 
 class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        count =Counter(nums)
-        count=sorted(count.items(), key =lambda x:x[1], reverse=True)
-        result=[]
-        for ch, num in count:
-            if len(result)<k:
-                result.append(ch)
-        return result
+    def sumOfThree(self, num: int) -> List[int]:
+        return [] if num%3!=0 else [num//3-1, num//3, num//3+1]
                
 """
 
@@ -30,38 +24,28 @@ class Solution:
 ## Platform
 {platform}
 
-## 347. Top K Frequent Elements
+## 2177. Find Three Consecutive Integers That Sum to a Given Number
 
-Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+Given an integer num, return three consecutive integers (as a sorted array) that sum to num. If num cannot be expressed as the sum of three consecutive integers, return an empty array.
 
  
 
 Example 1:
 
-Input: nums = [1,1,1,2,2,3], k = 2
-
-Output: [1,2]
-
+Input: num = 33
+Output: [10,11,12]
+Explanation: 33 can be expressed as 10 + 11 + 12 = 33.
+10, 11, 12 are 3 consecutive integers, so we return [10, 11, 12].
 Example 2:
 
-Input: nums = [1], k = 1
-
-Output: [1]
-
-Example 3:
-
-Input: nums = [1,2,1,2,1,2,3,1,3,2], k = 2
-
-Output: [1,2]
-
+Input: num = 4
+Output: []
+Explanation: There is no way to express 4 as the sum of 3 consecutive integers.
  
 
 Constraints:
 
-1 <= nums.length <= 105
--104 <= nums[i] <= 104
-k is in the range [1, the number of unique elements in the array].
-It is guaranteed that the answer is unique.
+0 <= num <= 1015
 
 """
 
