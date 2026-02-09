@@ -13,15 +13,15 @@ def create_files(base, folder, filename, title, platform):
 # Platform: {platform}
 
 class Solution:
-    def separateDigits(self, nums: List[int]) -> List[int]:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        count =Counter(nums)
+        count=sorted(count.items(), key =lambda x:x[1], reverse=True)
         result=[]
-        for ch in nums:
-            j=0
-            m=str(ch)
-            while j<len(m):
-                result.append(int(m[j]))
-                j+=1
-        return result         
+        for ch, num in count:
+            if len(result)<k:
+                result.append(ch)
+        return result
+               
 """
 
     # ---- README template ----
@@ -30,37 +30,39 @@ class Solution:
 ## Platform
 {platform}
 
-## 2553. Separate the Digits in an Array
+## 347. Top K Frequent Elements
 
-Given an array of positive integers nums, return an array answer that consists of the digits of each integer in nums after separating them in the same order they appear in nums.
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
 
-To separate the digits of an integer is to get all the digits it has in the same order.
-
-For example, for the integer 10921, the separation of its digits is [1,0,9,2,1].
  
 
 Example 1:
 
-Input: nums = [13,25,83,77]
-Output: [1,3,2,5,8,3,7,7]
-Explanation: 
-- The separation of 13 is [1,3].
-- The separation of 25 is [2,5].
-- The separation of 83 is [8,3].
-- The separation of 77 is [7,7].
-answer = [1,3,2,5,8,3,7,7]. Note that answer contains the separations in the same order.
+Input: nums = [1,1,1,2,2,3], k = 2
+
+Output: [1,2]
+
 Example 2:
 
-Input: nums = [7,1,3,9]
-Output: [7,1,3,9]
-Explanation: The separation of each integer in nums is itself.
-answer = [7,1,3,9].
+Input: nums = [1], k = 1
+
+Output: [1]
+
+Example 3:
+
+Input: nums = [1,2,1,2,1,2,3,1,3,2], k = 2
+
+Output: [1,2]
+
  
 
 Constraints:
 
-1 <= nums.length <= 1000
-1 <= nums[i] <= 105
+1 <= nums.length <= 105
+-104 <= nums[i] <= 104
+k is in the range [1, the number of unique elements in the array].
+It is guaranteed that the answer is unique.
+
 """
 
     # ---- NOTES template ----
