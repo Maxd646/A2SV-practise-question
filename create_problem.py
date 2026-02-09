@@ -11,20 +11,10 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-
 class Solution:
-    def sumEvenAfterQueries(self, nums: List[int], queries: List[List[int]]) -> List[int]:
-        result= []
-        summ=sum(num for num in nums if num%2==0)
-        for val, i in queries:
-            if nums[i]%2==0:
-                summ-=nums[i]
-            nums[i]=nums[i]+val
-            if nums[i]%2==0:
-                summ+=nums[i]
-            result.append(summ)
-        return result
-           
+    def restoreString(self, s: str, indices: List[int]) -> str:
+        meber= dict(zip(indices, list(s) ))
+        return "".join(meber[i] for i in range(len(s)))     
 """
 
     # ---- README template ----
@@ -33,39 +23,36 @@ class Solution:
 ## Platform
 {platform}
 
-## 985. Sum of Even Numbers After Queries
+## 1528. Shuffle String
 
+You are given a string s and an integer array indices of the same length. The string s will be shuffled such that the character at the ith position moves to indices[i] in the shuffled string.
 
-You are given an integer array nums and an array queries where queries[i] = [vali, indexi].
-
-For each query i, first, apply nums[indexi] = nums[indexi] + vali, then print the sum of the even values of nums.
-
-Return an integer array answer where answer[i] is the answer to the ith query.
+Return the shuffled string.
 
  
 
 Example 1:
 
-Input: nums = [1,2,3,4], queries = [[1,0],[-3,1],[-4,0],[2,3]]
-Output: [8,6,2,4]
-Explanation: At the beginning, the array is [1,2,3,4].
-After adding 1 to nums[0], the array is [2,2,3,4], and the sum of even values is 2 + 2 + 4 = 8.
-After adding -3 to nums[1], the array is [2,-1,3,4], and the sum of even values is 2 + 4 = 6.
-After adding -4 to nums[0], the array is [-2,-1,3,4], and the sum of even values is -2 + 4 = 2.
-After adding 2 to nums[3], the array is [-2,-1,3,6], and the sum of even values is -2 + 6 = 4.
+
+Input: s = "codeleet", indices = [4,5,6,7,0,2,1,3]
+Output: "leetcode"
+Explanation: As shown, "codeleet" becomes "leetcode" after shuffling.
 Example 2:
 
-Input: nums = [1], queries = [[4,0]]
-Output: [0]
+Input: s = "abc", indices = [0,1,2]
+Output: "abc"
+Explanation: After shuffling, each character remains in its position.
  
 
 Constraints:
 
-1 <= nums.length <= 104
--104 <= nums[i] <= 104
-1 <= queries.length <= 104
--104 <= vali <= 104
-0 <= indexi < nums.length
+s.length == indices.length == n
+1 <= n <= 100
+s consists of only lowercase English letters.
+0 <= indices[i] < n
+All values of indices are unique.
+
+
 
 """
 
