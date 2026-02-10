@@ -13,20 +13,12 @@ def create_files(base, folder, filename, title, platform):
 # Platform: {platform}
 
 class Solution:
-    def longestConsecutive(self, nums: List[int]) -> int:
-        if nums==[]:
-            return 0
-        num=list(set(nums))
-        num.sort()
-        maxx= 1
-        count=1
-        for i in range(len(num)-1):
-            if num[i]+1==num[i+1]:
-                count+=1
-                maxx=max(count, maxx)
-            else:
-                count=1
-        return maxx  
+    def minSteps(self, s: str, t: str) -> int:
+        need= Counter(t)-Counter(s)
+        summ=0
+        for ch, num in need.items():
+            summ+=num
+        return summ
 """
 
     # ---- README template ----
@@ -35,33 +27,38 @@ class Solution:
 ## Platform
 {platform}
 
-## 128. Longest Consecutive Sequence
+## 1347. Minimum Number of Steps to Make Two Strings Anagram
 
-Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+You are given two strings of the same length s and t. In one step you can choose any character of t and replace it with another character.
 
-You must write an algorithm that runs in O(n) time.
+Return the minimum number of steps to make t an anagram of s.
+
+An Anagram of a string is a string that contains the same characters with a different (or the same) ordering.
 
  
 
 Example 1:
 
-Input: nums = [100,4,200,1,3,2]
-Output: 4
-Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+Input: s = "bab", t = "aba"
+Output: 1
+Explanation: Replace the first 'a' in t with b, t = "bba" which is anagram of s.
 Example 2:
 
-Input: nums = [0,3,7,2,5,8,4,6,0,1]
-Output: 9
+Input: s = "leetcode", t = "practice"
+Output: 5
+Explanation: Replace 'p', 'r', 'a', 'i' and 'c' from t with proper characters to make t anagram of s.
 Example 3:
 
-Input: nums = [1,0,1,2]
-Output: 3
+Input: s = "anagram", t = "mangaar"
+Output: 0
+Explanation: "anagram" and "mangaar" are anagrams. 
  
 
 Constraints:
 
-0 <= nums.length <= 105
--109 <= nums[i] <= 109
+1 <= s.length <= 5 * 104
+s.length == t.length
+s and t consist of lowercase English letters only.
 """
 
     # ---- NOTES template ----
