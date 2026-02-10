@@ -12,14 +12,9 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        seen= dict()
-        for i in range(len(nums)):
-            num= target-nums[i]
-            if num in seen:
-                return [seen[num], i]
-            seen[nums[i]]=i
-        return []     
+    def isAnagram(self, s: str, t: str) -> bool:
+        return Counter(s)==Counter(t)
+            
 """
 
     # ---- README template ----
@@ -28,42 +23,33 @@ class Solution:
 ## Platform
 {platform}
 
-## 1. Two Sum
+## 242. Valid Anagram
 
-Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
-
-You may assume that each input would have exactly one solution, and you may not use the same element twice.
-
-You can return the answer in any order.
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
 
  
 
 Example 1:
 
-Input: nums = [2,7,11,15], target = 9
-Output: [0,1]
-Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+Input: s = "anagram", t = "nagaram"
+
+Output: true
+
 Example 2:
 
-Input: nums = [3,2,4], target = 6
-Output: [1,2]
-Example 3:
+Input: s = "rat", t = "car"
 
-Input: nums = [3,3], target = 6
-Output: [0,1]
+Output: false
+
  
 
 Constraints:
 
-2 <= nums.length <= 104
--109 <= nums[i] <= 109
--109 <= target <= 109
-Only one valid answer exists.
+1 <= s.length, t.length <= 5 * 104
+s and t consist of lowercase English letters.
  
 
-Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
-
-
+Follow up: What if the inputs contain Unicode characters? How would you adapt your solution to such a case?
 """
 
     # ---- NOTES template ----
