@@ -12,21 +12,21 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 
-for _ in range(int(input())):
-    input()
-    s= input()
-    if "aa" in s:
-         print(2)
-    else:
-        if  "aca" in s or "aba" in s:
-            print(3)
-        elif  "abca" in s or "acba" in s:
-            print(4)
-        elif "abbacca" in s or "accabba" in s:
-            print(7)
-        else:
-            print(-1)
-          
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        if nums==[]:
+            return 0
+        num=list(set(nums))
+        num.sort()
+        maxx= 1
+        count=1
+        for i in range(len(num)-1):
+            if num[i]+1==num[i+1]:
+                count+=1
+                maxx=max(count, maxx)
+            else:
+                count=1
+        return maxx  
 """
 
     # ---- README template ----
@@ -35,70 +35,33 @@ for _ in range(int(input())):
 ## Platform
 {platform}
 
-## C. Dominant Character
+## 128. Longest Consecutive Sequence
 
-Ashish has a string s
- of length n
- containing only characters 'a', 'b' and 'c'.
+Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
 
-He wants to find the length of the smallest substring, which satisfies the following conditions:
+You must write an algorithm that runs in O(n) time.
 
-Length of the substring is at least 2
-'a' occurs strictly more times in this substring than 'b'
-'a' occurs strictly more times in this substring than 'c'
-Ashish is busy planning his next Codeforces round. Help him solve the problem.
+ 
 
-A string a
- is a substring of a string b
- if a
- can be obtained from b
- by deletion of several (possibly, zero or all) characters from the beginning and several (possibly, zero or all) characters from the end.
+Example 1:
 
-Input
-The first line contains a single integer t
- (1≤t≤105)
-  — the number of test cases. The description of test cases follows.
+Input: nums = [100,4,200,1,3,2]
+Output: 4
+Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+Example 2:
 
-The first line of each test case contains a single integer n
- (2≤n≤106)
-  — the length of the string s
-.
+Input: nums = [0,3,7,2,5,8,4,6,0,1]
+Output: 9
+Example 3:
 
-The second line of each test case contains a string s
- consisting only of characters 'a', 'b' and 'c'.
+Input: nums = [1,0,1,2]
+Output: 3
+ 
 
-It is guaranteed that the sum of n
- over all test cases does not exceed 106
-.
+Constraints:
 
-Output
-For each test case, output the length of the smallest substring which satisfies the given conditions or print −1
- if there is no such substring.
-
-Example
-InputCopy
-3
-2
-aa
-5
-cbabb
-8
-cacabccc
-OutputCopy
-2
--1
-3
-Note
-Consider the first test case. In the substring "aa", 'a' occurs twice, while 'b' and 'c' occur zero times. Since 'a' occurs strictly more times than 'b' and 'c', the substring "aa" satisfies the condition and the answer is 2
-. The substring "a" also satisfies this condition, however its length is not at least 2
-.
-
-In the second test case, it can be shown that in none of the substrings of "cbabb" does 'a' occur strictly more times than 'b' and 'c' each.
-
-In the third test case, "cacabccc", the length of the smallest substring that satisfies the conditions is 3
-.
-
-
+0 <= nums.length <= 105
+-109 <= nums[i] <= 109
 """
 
     # ---- NOTES template ----
