@@ -12,8 +12,20 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def isAnagram(self, s: str, t: str) -> bool:
-        return Counter(s)==Counter(t)
+    def isHappy(self, n: int) -> bool:
+        seen=set()
+        digit=0
+        while n!=1:
+            if n not in seen:
+                seen.add(n)
+                digit=sum(int(x)**2 for x in str(n))
+            else:
+                return False
+            n=digit
+        if n==1:
+            return True
+        else:
+            return False
             
 """
 
@@ -23,33 +35,39 @@ class Solution:
 ## Platform
 {platform}
 
-## 242. Valid Anagram
+## 202. Happy Number
 
-Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+Write an algorithm to determine if a number n is happy.
+
+A happy number is a number defined by the following process:
+
+Starting with any positive integer, replace the number by the sum of the squares of its digits.
+Repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.
+Those numbers for which this process ends in 1 are happy.
+Return true if n is a happy number, and false if not.
 
  
 
 Example 1:
 
-Input: s = "anagram", t = "nagaram"
-
+Input: n = 19
 Output: true
-
+Explanation:
+12 + 92 = 82
+82 + 22 = 68
+62 + 82 = 100
+12 + 02 + 02 = 1
 Example 2:
 
-Input: s = "rat", t = "car"
-
+Input: n = 2
 Output: false
-
  
 
 Constraints:
 
-1 <= s.length, t.length <= 5 * 104
-s and t consist of lowercase English letters.
- 
+1 <= n <= 231 - 1
 
-Follow up: What if the inputs contain Unicode characters? How would you adapt your solution to such a case?
 """
 
     # ---- NOTES template ----
