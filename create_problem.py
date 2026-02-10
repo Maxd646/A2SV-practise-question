@@ -13,12 +13,20 @@ def create_files(base, folder, filename, title, platform):
 # Platform: {platform}
 
 class Solution:
-    def minSteps(self, s: str, t: str) -> int:
-        need= Counter(t)-Counter(s)
-        summ=0
-        for ch, num in need.items():
-            summ+=num
-        return summ
+    def findOriginalArray(self, changed: List[int]) -> List[int]:
+        changed.sort()
+        result=[]
+        count=Counter(changed)
+        for num in changed:
+            if count[num]==0:
+                continue
+            count[num]-=1
+            double=num*2
+            if count[double]<=0:
+                return []
+            count[double]-=1
+            result.append(num)
+        return result
 """
 
     # ---- README template ----
@@ -27,38 +35,40 @@ class Solution:
 ## Platform
 {platform}
 
-## 1347. Minimum Number of Steps to Make Two Strings Anagram
+## 2007. Find Original Array From Doubled Array
 
-You are given two strings of the same length s and t. In one step you can choose any character of t and replace it with another character.
+An integer array original is transformed into a doubled array changed by appending twice the value of every element in original, and then randomly shuffling the resulting array.
 
-Return the minimum number of steps to make t an anagram of s.
-
-An Anagram of a string is a string that contains the same characters with a different (or the same) ordering.
+Given an array changed, return original if changed is a doubled array. If changed is not a doubled array, return an empty array. The elements in original may be returned in any order.
 
  
 
 Example 1:
 
-Input: s = "bab", t = "aba"
-Output: 1
-Explanation: Replace the first 'a' in t with b, t = "bba" which is anagram of s.
+Input: changed = [1,3,4,2,6,8]
+Output: [1,3,4]
+Explanation: One possible original array could be [1,3,4]:
+- Twice the value of 1 is 1 * 2 = 2.
+- Twice the value of 3 is 3 * 2 = 6.
+- Twice the value of 4 is 4 * 2 = 8.
+Other original arrays could be [4,3,1] or [3,1,4].
 Example 2:
 
-Input: s = "leetcode", t = "practice"
-Output: 5
-Explanation: Replace 'p', 'r', 'a', 'i' and 'c' from t with proper characters to make t anagram of s.
+Input: changed = [6,3,0,1]
+Output: []
+Explanation: changed is not a doubled array.
 Example 3:
 
-Input: s = "anagram", t = "mangaar"
-Output: 0
-Explanation: "anagram" and "mangaar" are anagrams. 
+Input: changed = [1]
+Output: []
+Explanation: changed is not a doubled array.
  
 
 Constraints:
 
-1 <= s.length <= 5 * 104
-s.length == t.length
-s and t consist of lowercase English letters only.
+1 <= changed.length <= 105
+0 <= changed[i] <= 105
+
 """
 
     # ---- NOTES template ----
