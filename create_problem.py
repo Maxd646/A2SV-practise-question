@@ -11,22 +11,22 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-class Solution:
-    def isHappy(self, n: int) -> bool:
-        seen=set()
-        digit=0
-        while n!=1:
-            if n not in seen:
-                seen.add(n)
-                digit=sum(int(x)**2 for x in str(n))
-            else:
-                return False
-            n=digit
-        if n==1:
-            return True
+
+for _ in range(int(input())):
+    input()
+    s= input()
+    if "aa" in s:
+         print(2)
+    else:
+        if  "aca" in s or "aba" in s:
+            print(3)
+        elif  "abca" in s or "acba" in s:
+            print(4)
+        elif "abbacca" in s or "accabba" in s:
+            print(7)
         else:
-            return False
-            
+            print(-1)
+          
 """
 
     # ---- README template ----
@@ -35,38 +35,69 @@ class Solution:
 ## Platform
 {platform}
 
-## 202. Happy Number
+## C. Dominant Character
 
+Ashish has a string s
+ of length n
+ containing only characters 'a', 'b' and 'c'.
 
-Write an algorithm to determine if a number n is happy.
+He wants to find the length of the smallest substring, which satisfies the following conditions:
 
-A happy number is a number defined by the following process:
+Length of the substring is at least 2
+'a' occurs strictly more times in this substring than 'b'
+'a' occurs strictly more times in this substring than 'c'
+Ashish is busy planning his next Codeforces round. Help him solve the problem.
 
-Starting with any positive integer, replace the number by the sum of the squares of its digits.
-Repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.
-Those numbers for which this process ends in 1 are happy.
-Return true if n is a happy number, and false if not.
+A string a
+ is a substring of a string b
+ if a
+ can be obtained from b
+ by deletion of several (possibly, zero or all) characters from the beginning and several (possibly, zero or all) characters from the end.
 
- 
+Input
+The first line contains a single integer t
+ (1≤t≤105)
+  — the number of test cases. The description of test cases follows.
 
-Example 1:
+The first line of each test case contains a single integer n
+ (2≤n≤106)
+  — the length of the string s
+.
 
-Input: n = 19
-Output: true
-Explanation:
-12 + 92 = 82
-82 + 22 = 68
-62 + 82 = 100
-12 + 02 + 02 = 1
-Example 2:
+The second line of each test case contains a string s
+ consisting only of characters 'a', 'b' and 'c'.
 
-Input: n = 2
-Output: false
- 
+It is guaranteed that the sum of n
+ over all test cases does not exceed 106
+.
 
-Constraints:
+Output
+For each test case, output the length of the smallest substring which satisfies the given conditions or print −1
+ if there is no such substring.
 
-1 <= n <= 231 - 1
+Example
+InputCopy
+3
+2
+aa
+5
+cbabb
+8
+cacabccc
+OutputCopy
+2
+-1
+3
+Note
+Consider the first test case. In the substring "aa", 'a' occurs twice, while 'b' and 'c' occur zero times. Since 'a' occurs strictly more times than 'b' and 'c', the substring "aa" satisfies the condition and the answer is 2
+. The substring "a" also satisfies this condition, however its length is not at least 2
+.
+
+In the second test case, it can be shown that in none of the substrings of "cbabb" does 'a' occur strictly more times than 'b' and 'c' each.
+
+In the third test case, "cacabccc", the length of the smallest substring that satisfies the conditions is 3
+.
+
 
 """
 
