@@ -13,38 +13,11 @@ def create_files(base, folder, filename, title, platform):
 # Platform: {platform}
 
 class Solution:
-    def findValidPair(self, s: str) -> str:
-        Count=Counter(s)
-        for i in range(len(s)-1):
-            if s[i]!=s[i+1]:
-                if Count[s[i]]==int(s[i]) and Count[s[i+1]]==int(s[i+1]):
-                    return s[i:i+2]
-        return ""
-# or
-class Solution:
-    def findValidPair(self, s: str) -> str:
-        Count=Counter(s)
-        res=""
-        seen= set()
-        j=0
-        for ch, num in Count.items():
-            if int(ch)==num:
-                res+=ch
-        if len(res)<2:
-            return ""
-        seen= set(res)
-        found=False
-        for i in range(len(s)-1):
-            if s[i] in seen and s[i+1] in seen:
-                seen.add(s[i:i+2])
-        
-        found =False
-        for i in range(len(s)):
-            if s[i:i+2] in seen and len(set(s[i:i+2]))==2:
-                found=True
-                return s[i:i+2]
-        if not found:
-            return ""
+    def frequencySort(self, s: str) -> str:
+        count= Counter(s)
+        result= [ch*num for ch, num in sorted(count.items(), key=lambda x:x[1], reverse= True)]
+        return "".join(result)
+
 """
 
     # ---- README template ----
@@ -53,52 +26,38 @@ class Solution:
 ## Platform
 {platform}
 
-## 3438. Find Valid Pair of Adjacent Digits in String
+## 451. Sort Characters By Frequency
 
-You are given a string s consisting only of digits. A valid pair is defined as two adjacent digits in s such that:
+Given a string s, sort it in decreasing order based on the frequency of the characters. The frequency of a character is the number of times it appears in the string.
 
-The first digit is not equal to the second.
-Each digit in the pair appears in s exactly as many times as its numeric value.
-Return the first valid pair found in the string s when traversing from left to right. If no valid pair exists, return an empty string.
+Return the sorted string. If there are multiple answers, return any of them.
 
  
 
 Example 1:
 
-Input: s = "2523533"
-
-Output: "23"
-
-Explanation:
-
-Digit '2' appears 2 times and digit '3' appears 3 times. Each digit in the pair "23" appears in s exactly as many times as its numeric value. Hence, the output is "23".
-
+Input: s = "tree"
+Output: "eert"
+Explanation: 'e' appears twice while 'r' and 't' both appear once.
+So 'e' must appear before both 'r' and 't'. Therefore "eetr" is also a valid answer.
 Example 2:
 
-Input: s = "221"
-
-Output: "21"
-
-Explanation:
-
-Digit '2' appears 2 times and digit '1' appears 1 time. Hence, the output is "21".
-
+Input: s = "cccaaa"
+Output: "aaaccc"
+Explanation: Both 'c' and 'a' appear three times, so both "cccaaa" and "aaaccc" are valid answers.
+Note that "cacaca" is incorrect, as the same characters must be together.
 Example 3:
 
-Input: s = "22"
-
-Output: ""
-
-Explanation:
-
-There are no valid adjacent pairs.
-
+Input: s = "Aabb"
+Output: "bbAa"
+Explanation: "bbaA" is also a valid answer, but "Aabb" is incorrect.
+Note that 'A' and 'a' are treated as two different characters.
  
 
 Constraints:
 
-2 <= s.length <= 100
-s only consists of digits from '1' to '9'.
+1 <= s.length <= 5 * 105
+s consists of uppercase and lowercase English letters and digits.
 
 """
 
