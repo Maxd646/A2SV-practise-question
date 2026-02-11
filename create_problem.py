@@ -11,49 +11,18 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-
-for _ in range(int(input())):
-    n, x, k = map(int, input().split())
-    s = input().strip()
-    
-    pr = 0
-    f = -1
-    
-    for i in range(n):
-        if s[i] == 'L':
-            pr -= 1
-        else:
-            pr += 1
-        
-        if pr== -x:
-            f = i + 1
-            break
-    
-    if f== -1 or f > k:
-        print(0)
-        continue
-    
-    an= 1
-    r= k - f
-    
-    pr = 0
-    cy= -1
-    
-    for i in range(n):
-        if s[i] == 'L':
-            pr-= 1
-        else:
-            pr += 1
-        
-        if pr == 0:
-            cy = i + 1
-            break
-    
-    if cy == -1:
-        print(an)
-    else:
-        an += r // cy
-        print(an)
+class Solution:
+    def findCommonResponse(self, responses: List[List[str]]) -> str:
+        seen=set()
+        result=[]
+        for ch in responses:
+            seen.clear()
+            for word in ch:
+                if word not in seen:
+                    seen.add(word)
+                    result.append(word)
+        count=Counter(result)
+        return sorted(count.items(), key=lambda x: (-x[1], x[0]))[0][0]
 """
 
     # ---- README template ----
@@ -62,95 +31,44 @@ for _ in range(int(input())):
 ## Platform
 {platform}
 
-## B. Robot Program
+## 3527. Find the Most Common Response
 
-There is a robot on the coordinate line. Initially, the robot is located at the point x
- (x≠0
-). The robot has a sequence of commands of length n
- consisting of characters, where L represents a move to the left by one unit (from point p
- to point (p−1)
-) and R represents a move to the right by one unit (from point p
- to point (p+1)
-).
+You are given a 2D string array responses where each responses[i] is an array of strings representing survey responses from the ith day.
 
-The robot starts executing this sequence of commands (one command per second, in the order they are presented). However, whenever the robot reaches the point 0
-, the counter of executed commands is reset (i. e. it starts executing the entire sequence of commands from the very beginning). If the robot has completed all commands and is not at 0
-, it stops.
+Return the most common response across all days after removing duplicate responses within each responses[i]. If there is a tie, return the lexicographically smallest response.
 
-Your task is to calculate how many times the robot will enter the point 0
- during the next k
- seconds.
+ 
 
-Input
-The first line contains a single integer t
- (1≤t≤104
-) — the number of test cases.
+Example 1:
 
-The first line of a test case contains three integers n
-, x
- and k
- (1≤n≤2⋅105
-; −n≤x≤n
-; n≤k≤1018
-).
+Input: responses = [["good","ok","good","ok"],["ok","bad","good","ok","ok"],["good"],["bad"]]
 
-The second line of a test case contains a string s
- consisting of n
- characters L and/or R.
+Output: "good"
 
-Additional constraint on the input: the sum of n
- over all test cases doesn't exceed 2⋅105
-.
+Explanation:
 
-Output
-For each test case, print a single integer — the number of times the robot will enter the point 0
- during the next k
- seconds.
+After removing duplicates within each list, responses = [["good", "ok"], ["ok", "bad", "good"], ["good"], ["bad"]].
+"good" appears 3 times, "ok" appears 2 times, and "bad" appears 2 times.
+Return "good" because it has the highest frequency.
+Example 2:
 
-Example
-InputCopy
-6
-3 2 6
-LLR
-2 -1 8
-RL
-4 -2 5
-LRRR
-5 3 7
-LRRLL
-1 1 1
-L
-3 -1 4846549234412827
-RLR
-OutputCopy
-1
-4
-1
-0
-1
-2423274617206414
-Note
-In the first example, the robot moves as follows: 2→1→0–→−1→−2→−1
-. The robot has completed all instructions from the sequence and is not at 0
-. So it stops after 5
- seconds and the point 0
- is entered once.
+Input: responses = [["good","ok","good"],["ok","bad"],["bad","notsure"],["great","good"]]
 
-In the second example, the robot moves as follows: −1→0–→1→0–→1→0–→1→0–→1
-. The robot worked 8
- seconds and the point 0
- is entered 4
- times.
+Output: "bad"
 
-In the third example, the robot moves as follows: −2→−3→−2→−1→0–→−1
-. The robot worked 5
- seconds and the point 0
- is entered once.
+Explanation:
 
-In the fourth example, the robot moves as follows: 3→2→3→4→3→2
-. The robot has completed all instructions from the sequence and is not at 0
-. So it stops after 5
- seconds, without reaching the point 0
+After removing duplicates within each list we have responses = [["good", "ok"], ["ok", "bad"], ["bad", "notsure"], ["great", "good"]].
+"bad", "good", and "ok" each occur 2 times.
+The output is "bad" because it is the lexicographically smallest amongst the words with the highest frequency.
+ 
+
+Constraints:
+
+1 <= responses.length <= 1000
+1 <= responses[i].length <= 1000
+1 <= responses[i][j].length <= 10
+responses[i][j] consists of only lowercase English letters
 .
 """
 
