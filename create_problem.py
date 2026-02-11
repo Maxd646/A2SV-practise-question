@@ -12,18 +12,48 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 
-class Solution:
-    def closeStrings(self, word1: str, word2: str) -> bool:
-        res1=[]
-        res2=[]
-        count=Counter(word1)
-        for ch, num in count.items():
-            res1.append(num)
-        count.clear()
-        count=Counter(word2)
-        for ch, num in count.items():
-            res2.append(num)
-        return sorted(res2)==sorted(res1) and set(word1)==set(word2)
+for _ in range(int(input())):
+    n, x, k = map(int, input().split())
+    s = input().strip()
+    
+    pr = 0
+    f = -1
+    
+    for i in range(n):
+        if s[i] == 'L':
+            pr -= 1
+        else:
+            pr += 1
+        
+        if pr== -x:
+            f = i + 1
+            break
+    
+    if f== -1 or f > k:
+        print(0)
+        continue
+    
+    an= 1
+    r= k - f
+    
+    pr = 0
+    cy= -1
+    
+    for i in range(n):
+        if s[i] == 'L':
+            pr-= 1
+        else:
+            pr += 1
+        
+        if pr == 0:
+            cy = i + 1
+            break
+    
+    if cy == -1:
+        print(an)
+    else:
+        an += r // cy
+        print(an)
 """
 
     # ---- README template ----
@@ -32,46 +62,96 @@ class Solution:
 ## Platform
 {platform}
 
-## 1657. Determine if Two Strings Are Close
+## B. Robot Program
 
-Two strings are considered close if you can attain one from the other using the following operations:
+There is a robot on the coordinate line. Initially, the robot is located at the point x
+ (x≠0
+). The robot has a sequence of commands of length n
+ consisting of characters, where L represents a move to the left by one unit (from point p
+ to point (p−1)
+) and R represents a move to the right by one unit (from point p
+ to point (p+1)
+).
 
-Operation 1: Swap any two existing characters.
-For example, abcde -> aecdb
-Operation 2: Transform every occurrence of one existing character into another existing character, and do the same with the other character.
-For example, aacabb -> bbcbaa (all a's turn into b's, and all b's turn into a's)
-You can use the operations on either string as many times as necessary.
+The robot starts executing this sequence of commands (one command per second, in the order they are presented). However, whenever the robot reaches the point 0
+, the counter of executed commands is reset (i. e. it starts executing the entire sequence of commands from the very beginning). If the robot has completed all commands and is not at 0
+, it stops.
 
-Given two strings, word1 and word2, return true if word1 and word2 are close, and false otherwise.
+Your task is to calculate how many times the robot will enter the point 0
+ during the next k
+ seconds.
 
- 
+Input
+The first line contains a single integer t
+ (1≤t≤104
+) — the number of test cases.
 
-Example 1:
+The first line of a test case contains three integers n
+, x
+ and k
+ (1≤n≤2⋅105
+; −n≤x≤n
+; n≤k≤1018
+).
 
-Input: word1 = "abc", word2 = "bca"
-Output: true
-Explanation: You can attain word2 from word1 in 2 operations.
-Apply Operation 1: "abc" -> "acb"
-Apply Operation 1: "acb" -> "bca"
-Example 2:
+The second line of a test case contains a string s
+ consisting of n
+ characters L and/or R.
 
-Input: word1 = "a", word2 = "aa"
-Output: false
-Explanation: It is impossible to attain word2 from word1, or vice versa, in any number of operations.
-Example 3:
+Additional constraint on the input: the sum of n
+ over all test cases doesn't exceed 2⋅105
+.
 
-Input: word1 = "cabbba", word2 = "abbccc"
-Output: true
-Explanation: You can attain word2 from word1 in 3 operations.
-Apply Operation 1: "cabbba" -> "caabbb"
-Apply Operation 2: "caabbb" -> "baaccc"
-Apply Operation 2: "baaccc" -> "abbccc"
- 
+Output
+For each test case, print a single integer — the number of times the robot will enter the point 0
+ during the next k
+ seconds.
 
-Constraints:
+Example
+InputCopy
+6
+3 2 6
+LLR
+2 -1 8
+RL
+4 -2 5
+LRRR
+5 3 7
+LRRLL
+1 1 1
+L
+3 -1 4846549234412827
+RLR
+OutputCopy
+1
+4
+1
+0
+1
+2423274617206414
+Note
+In the first example, the robot moves as follows: 2→1→0–→−1→−2→−1
+. The robot has completed all instructions from the sequence and is not at 0
+. So it stops after 5
+ seconds and the point 0
+ is entered once.
 
-1 <= word1.length, word2.length <= 105
-word1 and word2 contain only lowercase English letters.
+In the second example, the robot moves as follows: −1→0–→1→0–→1→0–→1→0–→1
+. The robot worked 8
+ seconds and the point 0
+ is entered 4
+ times.
+
+In the third example, the robot moves as follows: −2→−3→−2→−1→0–→−1
+. The robot worked 5
+ seconds and the point 0
+ is entered once.
+
+In the fourth example, the robot moves as follows: 3→2→3→4→3→2
+. The robot has completed all instructions from the sequence and is not at 0
+. So it stops after 5
+ seconds, without reaching the point 0
+.
 """
 
     # ---- NOTES template ----
