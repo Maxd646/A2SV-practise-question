@@ -12,45 +12,9 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 
-from collections import defaultdict
-
-class FrequencyTracker:
-    def __init__(self):
-        self.count = defaultdict(int)   
-        self.freq = defaultdict(int)    
-
-    def add(self, number: int) -> None:
-        d = self.count[number]
-        if d > 0:
-            self.freq[d] -= 1
-
-        self.count[number] += 1
-        self.freq[d + 1] += 1
-
-    def deleteOne(self, number: int) -> None:
-        if self.count[number] == 0:
-            return
-
-        d = self.count[number]
-        self.freq[d] -= 1
-        self.count[number] -= 1
-
-        if self.count[number] > 0:
-            self.freq[d - 1] += 1
-        else:
-            del self.count[number]
-
-    def hasFrequency(self, frequency: int) -> bool:
-        return self.freq[frequency] > 0
-
-
-
-# Your FrequencyTracker object will be instantiated and called as such:
-# obj = FrequencyTracker()
-# obj.add(number)
-# obj.deleteOne(number)
-# param_3 = obj.hasFrequency(frequency)
-
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        return len(set(nums))!=len(nums)
 """
 
     # ---- README template ----
@@ -59,67 +23,44 @@ class FrequencyTracker:
 ## Platform
 {platform}
 
-## 2671. Frequency Tracker
+## 217. Contains Duplicate
 
-Design a data structure that keeps track of the values in it and answers some queries regarding their frequencies.
+Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
 
-Implement the FrequencyTracker class.
-
-FrequencyTracker(): Initializes the FrequencyTracker object with an empty array initially.
-void add(int number): Adds number to the data structure.
-void deleteOne(int number): Deletes one occurrence of number from the data structure. The data structure may not contain number, and in this case nothing is deleted.
-bool hasFrequency(int frequency): Returns true if there is a number in the data structure that occurs frequency number of times, otherwise, it returns false.
  
 
 Example 1:
 
-Input
-["FrequencyTracker", "add", "add", "hasFrequency"]
-[[], [3], [3], [2]]
-Output
-[null, null, null, true]
+Input: nums = [1,2,3,1]
 
-Explanation
-FrequencyTracker frequencyTracker = new FrequencyTracker();
-frequencyTracker.add(3); // The data structure now contains [3]
-frequencyTracker.add(3); // The data structure now contains [3, 3]
-frequencyTracker.hasFrequency(2); // Returns true, because 3 occurs twice
+Output: true
+
+Explanation:
+
+The element 1 occurs at the indices 0 and 3.
 
 Example 2:
 
-Input
-["FrequencyTracker", "add", "deleteOne", "hasFrequency"]
-[[], [1], [1], [1]]
-Output
-[null, null, null, false]
+Input: nums = [1,2,3,4]
 
-Explanation
-FrequencyTracker frequencyTracker = new FrequencyTracker();
-frequencyTracker.add(1); // The data structure now contains [1]
-frequencyTracker.deleteOne(1); // The data structure becomes empty []
-frequencyTracker.hasFrequency(1); // Returns false, because the data structure is empty
+Output: false
+
+Explanation:
+
+All elements are distinct.
 
 Example 3:
 
-Input
-["FrequencyTracker", "hasFrequency", "add", "hasFrequency"]
-[[], [2], [3], [1]]
-Output
-[null, false, null, true]
+Input: nums = [1,1,1,3,3,4,3,2,4,2]
 
-Explanation
-FrequencyTracker frequencyTracker = new FrequencyTracker();
-frequencyTracker.hasFrequency(2); // Returns false, because the data structure is empty
-frequencyTracker.add(3); // The data structure now contains [3]
-frequencyTracker.hasFrequency(1); // Returns true, because 3 occurs once
+Output: true
 
  
 
 Constraints:
 
-1 <= number <= 105
-1 <= frequency <= 105
-At most, 2 * 105 calls will be made to add, deleteOne, and hasFrequency in total.
+1 <= nums.length <= 105
+-109 <= nums[i] <= 109
 
 """
 
