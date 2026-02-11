@@ -13,11 +13,17 @@ def create_files(base, folder, filename, title, platform):
 # Platform: {platform}
 
 class Solution:
-    def frequencySort(self, s: str) -> str:
-        count= Counter(s)
-        result= [ch*num for ch, num in sorted(count.items(), key=lambda x:x[1], reverse= True)]
-        return "".join(result)
-
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        res1=[]
+        res2=[]
+        count=Counter(word1)
+        for ch, num in count.items():
+            res1.append(num)
+        count.clear()
+        count=Counter(word2)
+        for ch, num in count.items():
+            res2.append(num)
+        return sorted(res2)==sorted(res1) and set(word1)==set(word2)
 """
 
     # ---- README template ----
@@ -26,39 +32,46 @@ class Solution:
 ## Platform
 {platform}
 
-## 451. Sort Characters By Frequency
+## 1657. Determine if Two Strings Are Close
 
-Given a string s, sort it in decreasing order based on the frequency of the characters. The frequency of a character is the number of times it appears in the string.
+Two strings are considered close if you can attain one from the other using the following operations:
 
-Return the sorted string. If there are multiple answers, return any of them.
+Operation 1: Swap any two existing characters.
+For example, abcde -> aecdb
+Operation 2: Transform every occurrence of one existing character into another existing character, and do the same with the other character.
+For example, aacabb -> bbcbaa (all a's turn into b's, and all b's turn into a's)
+You can use the operations on either string as many times as necessary.
+
+Given two strings, word1 and word2, return true if word1 and word2 are close, and false otherwise.
 
  
 
 Example 1:
 
-Input: s = "tree"
-Output: "eert"
-Explanation: 'e' appears twice while 'r' and 't' both appear once.
-So 'e' must appear before both 'r' and 't'. Therefore "eetr" is also a valid answer.
+Input: word1 = "abc", word2 = "bca"
+Output: true
+Explanation: You can attain word2 from word1 in 2 operations.
+Apply Operation 1: "abc" -> "acb"
+Apply Operation 1: "acb" -> "bca"
 Example 2:
 
-Input: s = "cccaaa"
-Output: "aaaccc"
-Explanation: Both 'c' and 'a' appear three times, so both "cccaaa" and "aaaccc" are valid answers.
-Note that "cacaca" is incorrect, as the same characters must be together.
+Input: word1 = "a", word2 = "aa"
+Output: false
+Explanation: It is impossible to attain word2 from word1, or vice versa, in any number of operations.
 Example 3:
 
-Input: s = "Aabb"
-Output: "bbAa"
-Explanation: "bbaA" is also a valid answer, but "Aabb" is incorrect.
-Note that 'A' and 'a' are treated as two different characters.
+Input: word1 = "cabbba", word2 = "abbccc"
+Output: true
+Explanation: You can attain word2 from word1 in 3 operations.
+Apply Operation 1: "cabbba" -> "caabbb"
+Apply Operation 2: "caabbb" -> "baaccc"
+Apply Operation 2: "baaccc" -> "abbccc"
  
 
 Constraints:
 
-1 <= s.length <= 5 * 105
-s consists of uppercase and lowercase English letters and digits.
-
+1 <= word1.length, word2.length <= 105
+word1 and word2 contain only lowercase English letters.
 """
 
     # ---- NOTES template ----
