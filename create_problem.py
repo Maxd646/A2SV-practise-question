@@ -12,14 +12,32 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def rotate(self, matrix: List[List[int]]) -> None:
-        # Do not return anything, modify matrix in-place instead.
-        for i in range(len(matrix[0])):
-            for j in range(1+i, len(matrix)):
-                matrix[i][j], matrix[j][i]=matrix[j][i],matrix[i][j]
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        r, c=len(matrix), len(matrix[0])
+        top, bottom, right, left=0, r-1, c-1, 0
+        result=[]
+        while top<=bottom and left<=right:
 
-        for ch in matrix:
-            ch.reverse()
+            for i in range(left, right+1):
+                result.append(matrix[top][i])
+            top+=1
+
+
+            for j in range(top, bottom+1):
+                result.append(matrix[j][right])
+            right-=1
+
+            if top <= bottom:
+                for k in range(right, left-1, -1):
+                    result.append(matrix[bottom][k])
+                bottom-=1
+            
+            if left <= right:
+                for m in range(bottom, top-1, -1):
+                    result.append(matrix[m][left])
+                left+=1
+        return result
+
 """
 
     # ---- README template ----
@@ -28,11 +46,9 @@ class Solution:
 ## Platform
 {platform}
 
-## 48. Rotate Image
+## 54. Spiral Matrix
 
-You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
-
-You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+Given an m x n matrix, return all elements of the matrix in spiral order.
 
  
 
@@ -40,19 +56,20 @@ Example 1:
 
 
 Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
-Output: [[7,4,1],[8,5,2],[9,6,3]]
+Output: [1,2,3,6,9,8,7,4,5]
 Example 2:
 
 
-Input: matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
-Output: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]
+Input: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+Output: [1,2,3,4,8,12,11,10,9,5,6,7]
  
 
 Constraints:
 
-n == matrix.length == matrix[i].length
-1 <= n <= 20
--1000 <= matrix[i][j] <= 1000
+m == matrix.length
+n == matrix[i].length
+1 <= m, n <= 10
+-100 <= matrix[i][j] <= 100
  
 
 
