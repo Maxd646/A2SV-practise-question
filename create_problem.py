@@ -11,35 +11,21 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-import random
-class RandomizedSet:
+class Solution:
+    def minimumIndex(self, nums: List[int]) -> int:
+        num, total= Counter(nums).most_common(1)[0]
+        li=0
+        for index, number in enumerate(nums):
+            if number==num:
+                li+=1
+            liD=li*2>(index+1)
+            ri=total-li
+            riD=ri*2>len(nums)-(index+1)
+            
 
-    def __init__(self):
-        self.seen= set()
-    def insert(self, val: int) -> bool:
-        if val not in self.seen:
-            self.seen.add(val)
-            return True
-        else:
-            return False
-
-    def remove(self, val: int) -> bool:
-        if val in self.seen:
-            self.seen.remove(val)
-            return True
-        else:
-            return False
-    def getRandom(self) -> int:
-        return random.choice(list(self.seen))
-
-        
-
-
-# Your RandomizedSet object will be instantiated and called as such:
-# obj = RandomizedSet()
-# param_1 = obj.insert(val)
-# param_2 = obj.remove(val)
-# param_3 = obj.getRandom()
+            if liD and riD:
+                return index
+        return -1
 """
 
     # ---- README template ----
@@ -48,42 +34,52 @@ class RandomizedSet:
 ## Platform
 {platform}
 
-## 380. Insert Delete GetRandom O(1)
+## 2780. Minimum Index of a Valid Split
 
-Implement the RandomizedSet class:
+An element x of an integer array arr of length m is dominant if more than half the elements of arr have a value of x.
 
-RandomizedSet() Initializes the RandomizedSet object.
-bool insert(int val) Inserts an item val into the set if not present. Returns true if the item was not present, false otherwise.
-bool remove(int val) Removes an item val from the set if present. Returns true if the item was present, false otherwise.
-int getRandom() Returns a random element from the current set of elements (it's guaranteed that at least one element exists when this method is called). Each element must have the same probability of being returned.
-You must implement the functions of the class such that each function works in average O(1) time complexity.
+You are given a 0-indexed integer array nums of length n with one dominant element.
+
+You can split nums at an index i into two arrays nums[0, ..., i] and nums[i + 1, ..., n - 1], but the split is only valid if:
+
+0 <= i < n - 1
+nums[0, ..., i], and nums[i + 1, ..., n - 1] have the same dominant element.
+Here, nums[i, ..., j] denotes the subarray of nums starting at index i and ending at index j, both ends being inclusive. Particularly, if j < i then nums[i, ..., j] denotes an empty subarray.
+
+Return the minimum index of a valid split. If no valid split exists, return -1.
 
  
 
 Example 1:
 
-Input
-["RandomizedSet", "insert", "remove", "insert", "getRandom", "remove", "insert", "getRandom"]
-[[], [1], [2], [2], [], [1], [2], []]
-Output
-[null, true, false, true, 2, true, false, 2]
+Input: nums = [1,2,2,2]
+Output: 2
+Explanation: We can split the array at index 2 to obtain arrays [1,2,2] and [2]. 
+In array [1,2,2], element 2 is dominant since it occurs twice in the array and 2 * 2 > 3. 
+In array [2], element 2 is dominant since it occurs once in the array and 1 * 2 > 1.
+Both [1,2,2] and [2] have the same dominant element as nums, so this is a valid split. 
+It can be shown that index 2 is the minimum index of a valid split. 
+Example 2:
 
-Explanation
-RandomizedSet randomizedSet = new RandomizedSet();
-randomizedSet.insert(1); // Inserts 1 to the set. Returns true as 1 was inserted successfully.
-randomizedSet.remove(2); // Returns false as 2 does not exist in the set.
-randomizedSet.insert(2); // Inserts 2 to the set, returns true. Set now contains [1,2].
-randomizedSet.getRandom(); // getRandom() should return either 1 or 2 randomly.
-randomizedSet.remove(1); // Removes 1 from the set, returns true. Set now contains [2].
-randomizedSet.insert(2); // 2 was already in the set, so return false.
-randomizedSet.getRandom(); // Since 2 is the only number in the set, getRandom() will always return 2.
+Input: nums = [2,1,3,1,1,1,7,1,2,1]
+Output: 4
+Explanation: We can split the array at index 4 to obtain arrays [2,1,3,1,1] and [1,7,1,2,1].
+In array [2,1,3,1,1], element 1 is dominant since it occurs thrice in the array and 3 * 2 > 5.
+In array [1,7,1,2,1], element 1 is dominant since it occurs thrice in the array and 3 * 2 > 5.
+Both [2,1,3,1,1] and [1,7,1,2,1] have the same dominant element as nums, so this is a valid split.
+It can be shown that index 4 is the minimum index of a valid split.
+Example 3:
+
+Input: nums = [3,3,3,3,7,2,2]
+Output: -1
+Explanation: It can be shown that there is no valid split.
  
 
 Constraints:
 
--231 <= val <= 231 - 1
-At most 2 * 105 calls will be made to insert, remove, and getRandom.
-There will be at least one element in the data structure when getRandom is called.
+1 <= nums.length <= 105
+1 <= nums[i] <= 109
+nums has exactly one dominant element.
 
 """
 
