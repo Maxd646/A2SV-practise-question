@@ -12,32 +12,22 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        r, c=len(matrix), len(matrix[0])
-        top, bottom, right, left=0, r-1, c-1, 0
-        result=[]
-        while top<=bottom and left<=right:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        seenx=set()
+        seeny=set()
 
-            for i in range(left, right+1):
-                result.append(matrix[top][i])
-            top+=1
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if matrix[i][j]==0:
+                    seenx.add(i)
+                    seeny.add(j)
 
-
-            for j in range(top, bottom+1):
-                result.append(matrix[j][right])
-            right-=1
-
-            if top <= bottom:
-                for k in range(right, left-1, -1):
-                    result.append(matrix[bottom][k])
-                bottom-=1
-            
-            if left <= right:
-                for m in range(bottom, top-1, -1):
-                    result.append(matrix[m][left])
-                left+=1
-        return result
-
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if i in seenx:
+                    matrix[i][j]=0
+                elif j in seeny:
+                    matrix[i][j]=0
 """
 
     # ---- README template ----
@@ -46,31 +36,39 @@ class Solution:
 ## Platform
 {platform}
 
-## 54. Spiral Matrix
+## 73. Set Matrix Zeroes
 
-Given an m x n matrix, return all elements of the matrix in spiral order.
+Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's.
+
+You must do it in place.
 
  
 
 Example 1:
 
 
-Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
-Output: [1,2,3,6,9,8,7,4,5]
+Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
+Output: [[1,0,1],[0,0,0],[1,0,1]]
 Example 2:
 
 
-Input: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
-Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+Input: matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
+Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
  
 
 Constraints:
 
 m == matrix.length
-n == matrix[i].length
-1 <= m, n <= 10
--100 <= matrix[i][j] <= 100
+n == matrix[0].length
+1 <= m, n <= 200
+-231 <= matrix[i][j] <= 231 - 1
  
+
+Follow up:
+
+A straightforward solution using O(mn) space is probably a bad idea.
+A simple improvement uses O(m + n) space, but still not the best solution.
+Could you devise a constant space solution?
 
 
 """
