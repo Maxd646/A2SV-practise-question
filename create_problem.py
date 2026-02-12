@@ -12,13 +12,14 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
-        count=Counter(magazine)
-        coun=Counter(ransomNote)
-        for i in range(len(ransomNote)):
-            if coun[ransomNote[i]]>count[ransomNote[i]]:
-                return False
-        return True  
+    def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
+        result= []
+        for i in range(len(matrix[0])):
+            new=[]
+            for j in range(len(matrix)):
+                new.append(matrix[j][i])
+            result.append(new)
+        return result
 """
 
     # ---- README template ----
@@ -27,32 +28,34 @@ class Solution:
 ## Platform
 {platform}
 
-## 383. Ransom Note
+## 867. Transpose Matrix
 
-Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
+Given a 2D integer array matrix, return the transpose of matrix.
 
-Each letter in magazine can only be used once in ransomNote.
+The transpose of a matrix is the matrix flipped over its main diagonal, switching the matrix's row and column indices.
+
+
 
  
 
 Example 1:
 
-Input: ransomNote = "a", magazine = "b"
-Output: false
+Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [[1,4,7],[2,5,8],[3,6,9]]
 Example 2:
 
-Input: ransomNote = "aa", magazine = "ab"
-Output: false
-Example 3:
-
-Input: ransomNote = "aa", magazine = "aab"
-Output: true
+Input: matrix = [[1,2,3],[4,5,6]]
+Output: [[1,4],[2,5],[3,6]]
  
 
 Constraints:
 
-1 <= ransomNote.length, magazine.length <= 105
-ransomNote and magazine consist of lowercase English letters.
+m == matrix.length
+n == matrix[i].length
+1 <= m, n <= 1000
+1 <= m * n <= 105
+-109 <= matrix[i][j] <= 109
+
 """
 
     # ---- NOTES template ----
