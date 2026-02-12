@@ -12,17 +12,9 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def findCommonResponse(self, responses: List[List[str]]) -> str:
-        seen=set()
-        result=[]
-        for ch in responses:
-            seen.clear()
-            for word in ch:
-                if word not in seen:
-                    seen.add(word)
-                    result.append(word)
-        count=Counter(result)
-        return sorted(count.items(), key=lambda x: (-x[1], x[0]))[0][0]
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        return list(set(nums1) & set(nums2))
+        
 """
 
     # ---- README template ----
@@ -31,45 +23,27 @@ class Solution:
 ## Platform
 {platform}
 
-## 3527. Find the Most Common Response
+## 349. Intersection of Two Arrays
 
-You are given a 2D string array responses where each responses[i] is an array of strings representing survey responses from the ith day.
-
-Return the most common response across all days after removing duplicate responses within each responses[i]. If there is a tie, return the lexicographically smallest response.
+Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique and you may return the result in any order.
 
  
 
 Example 1:
 
-Input: responses = [["good","ok","good","ok"],["ok","bad","good","ok","ok"],["good"],["bad"]]
-
-Output: "good"
-
-Explanation:
-
-After removing duplicates within each list, responses = [["good", "ok"], ["ok", "bad", "good"], ["good"], ["bad"]].
-"good" appears 3 times, "ok" appears 2 times, and "bad" appears 2 times.
-Return "good" because it has the highest frequency.
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2]
 Example 2:
 
-Input: responses = [["good","ok","good"],["ok","bad"],["bad","notsure"],["great","good"]]
-
-Output: "bad"
-
-Explanation:
-
-After removing duplicates within each list we have responses = [["good", "ok"], ["ok", "bad"], ["bad", "notsure"], ["great", "good"]].
-"bad", "good", and "ok" each occur 2 times.
-The output is "bad" because it is the lexicographically smallest amongst the words with the highest frequency.
+Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+Output: [9,4]
+Explanation: [4,9] is also accepted.
  
 
 Constraints:
 
-1 <= responses.length <= 1000
-1 <= responses[i].length <= 1000
-1 <= responses[i][j].length <= 10
-responses[i][j] consists of only lowercase English letters
-.
+1 <= nums1.length, nums2.length <= 1000
+0 <= nums1[i], nums2[i] <= 1000
 """
 
     # ---- NOTES template ----
