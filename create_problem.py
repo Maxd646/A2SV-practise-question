@@ -12,9 +12,13 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        return list(set(nums1) & set(nums2))
-        
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        count=Counter(magazine)
+        coun=Counter(ransomNote)
+        for i in range(len(ransomNote)):
+            if coun[ransomNote[i]]>count[ransomNote[i]]:
+                return False
+        return True  
 """
 
     # ---- README template ----
@@ -23,27 +27,32 @@ class Solution:
 ## Platform
 {platform}
 
-## 349. Intersection of Two Arrays
+## 383. Ransom Note
 
-Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique and you may return the result in any order.
+Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
+
+Each letter in magazine can only be used once in ransomNote.
 
  
 
 Example 1:
 
-Input: nums1 = [1,2,2,1], nums2 = [2,2]
-Output: [2]
+Input: ransomNote = "a", magazine = "b"
+Output: false
 Example 2:
 
-Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
-Output: [9,4]
-Explanation: [4,9] is also accepted.
+Input: ransomNote = "aa", magazine = "ab"
+Output: false
+Example 3:
+
+Input: ransomNote = "aa", magazine = "aab"
+Output: true
  
 
 Constraints:
 
-1 <= nums1.length, nums2.length <= 1000
-0 <= nums1[i], nums2[i] <= 1000
+1 <= ransomNote.length, magazine.length <= 105
+ransomNote and magazine consist of lowercase English letters.
 """
 
     # ---- NOTES template ----
