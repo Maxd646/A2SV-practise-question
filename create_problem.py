@@ -12,20 +12,14 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
-        count=defaultdict(list)
-        for i in range(len(mat)):
-            for j in range(len(mat[0])):
-                    count[i+j].append(mat[i][j])
-        result=[]
-        coun=1
-        for ch, num in count.items():
-            if coun%2!=0:
-                num.reverse()
-                result.extend(num)
-            else:
-                result.extend(num)
-            coun+=1
+    def flipAndInvertImage(self, image: List[List[int]]) -> List[List[int]]:
+        result =[list(reversed(num)) for num in image]
+        for i in range(len(image)):
+            for j in range(len(image)):
+                if result[i][j]==1:
+                    result[i][j]=0
+                else:
+                    result[i][j]=1
         return result
 """
 
@@ -35,30 +29,38 @@ class Solution:
 ## Platform
 {platform}
 
-## 498. Diagonal Traverse
+## 832. Flipping an Image
 
-Given an m x n matrix mat, return an array of all the elements of the array in a diagonal order.
+Given an n x n binary matrix image, flip the image horizontally, then invert it, and return the resulting image.
 
+To flip an image horizontally means that each row of the image is reversed.
+
+For example, flipping [1,1,0] horizontally results in [0,1,1].
+To invert an image means that each 0 is replaced by 1, and each 1 is replaced by 0.
+
+For example, inverting [0,1,1] results in [1,0,0].
  
 
 Example 1:
 
-
-Input: mat = [[1,2,3],[4,5,6],[7,8,9]]
-Output: [1,2,4,7,5,3,6,8,9]
+Input: image = [[1,1,0],[1,0,1],[0,0,0]]
+Output: [[1,0,0],[0,1,0],[1,1,1]]
+Explanation: First reverse each row: [[0,1,1],[1,0,1],[0,0,0]].
+Then, invert the image: [[1,0,0],[0,1,0],[1,1,1]]
 Example 2:
 
-Input: mat = [[1,2],[3,4]]
-Output: [1,2,3,4]
+Input: image = [[1,1,0,0],[1,0,0,1],[0,1,1,1],[1,0,1,0]]
+Output: [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]
+Explanation: First reverse each row: [[0,0,1,1],[1,0,0,1],[1,1,1,0],[0,1,0,1]].
+Then invert the image: [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]
  
 
 Constraints:
 
-m == mat.length
-n == mat[i].length
-1 <= m, n <= 104
-1 <= m * n <= 104
--105 <= mat[i][j] <= 105
+n == image.length
+n == image[i].length
+1 <= n <= 20
+images[i][j] is either 0 or 1.
 
 """
 
