@@ -12,22 +12,13 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def wordPattern(self, pattern: str, s: str) -> bool:
-        nums=s.split()
-        if len(nums)!=len(pattern):
-            return False
-        seen =
-        seen2=
+    def countPairs(self, nums: List[int], k: int) -> int:
+        count=0
         for i in range(len(nums)):
-            p=pattern[i]
-            n=nums[i]
-            if p in seen and seen[p]!=n:
-                return False
-            if n in seen2 and seen2[n]!=p:
-                return False
-            seen[p]=n
-            seen2[n]=p
-        return True
+            for j in range(i+1, len(nums)):
+                if nums[i]==nums[j] and (i*j)%k==0  and i<j:
+                    count+=1
+        return count
 """
 
     # ---- README template ----
@@ -36,51 +27,32 @@ class Solution:
 ## Platform
 {platform}
 
-## 290. Word Pattern
+## 2176. Count Equal and Divisible Pairs in an Array
 
-Given a pattern and a string s, find if s follows the same pattern.
-
-Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in s. Specifically:
-
-Each letter in pattern maps to exactly one unique word in s.
-Each unique word in s maps to exactly one letter in pattern.
-No two letters map to the same word, and no two words map to the same letter.
+Given a 0-indexed integer array nums of length n and an integer k, return the number of pairs (i, j) where 0 <= i < j < n, such that nums[i] == nums[j] and (i * j) is divisible by k.
  
 
 Example 1:
 
-Input: pattern = "abba", s = "dog cat cat dog"
-
-Output: true
-
+Input: nums = [3,1,2,2,2,1,3], k = 2
+Output: 4
 Explanation:
-
-The bijection can be established as:
-
-'a' maps to "dog".
-'b' maps to "cat".
+There are 4 pairs that meet all the requirements:
+- nums[0] == nums[6], and 0 * 6 == 0, which is divisible by 2.
+- nums[2] == nums[3], and 2 * 3 == 6, which is divisible by 2.
+- nums[2] == nums[4], and 2 * 4 == 8, which is divisible by 2.
+- nums[3] == nums[4], and 3 * 4 == 12, which is divisible by 2.
 Example 2:
 
-Input: pattern = "abba", s = "dog cat cat fish"
-
-Output: false
-
-Example 3:
-
-Input: pattern = "aaaa", s = "dog cat cat dog"
-
-Output: false
-
+Input: nums = [1,2,3,4], k = 1
+Output: 0
+Explanation: Since no value in nums is repeated, there are no pairs (i,j) that meet all the requirements.
  
 
 Constraints:
 
-1 <= pattern.length <= 300
-pattern contains only lower-case English letters.
-1 <= s.length <= 3000
-s contains only lowercase English letters and spaces ' '.
-s does not contain any leading or trailing spaces.
-All the words in s are separated by a single space.
+1 <= nums.length <= 100
+1 <= nums[i], k <= 100
 
 """
 
