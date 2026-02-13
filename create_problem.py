@@ -12,13 +12,21 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def countPairs(self, nums: List[int], k: int) -> int:
-        count=0
-        for i in range(len(nums)):
-            for j in range(i+1, len(nums)):
-                if nums[i]==nums[j] and (i*j)%k==0  and i<j:
-                    count+=1
-        return count
+    def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
+        count=defaultdict(list)
+        for i in range(len(mat)):
+            for j in range(len(mat[0])):
+                    count[i+j].append(mat[i][j])
+        result=[]
+        coun=1
+        for ch, num in count.items():
+            if coun%2!=0:
+                num.reverse()
+                result.extend(num)
+            else:
+                result.extend(num)
+            coun+=1
+        return result
 """
 
     # ---- README template ----
@@ -27,32 +35,30 @@ class Solution:
 ## Platform
 {platform}
 
-## 2176. Count Equal and Divisible Pairs in an Array
+## 498. Diagonal Traverse
 
-Given a 0-indexed integer array nums of length n and an integer k, return the number of pairs (i, j) where 0 <= i < j < n, such that nums[i] == nums[j] and (i * j) is divisible by k.
+Given an m x n matrix mat, return an array of all the elements of the array in a diagonal order.
+
  
 
 Example 1:
 
-Input: nums = [3,1,2,2,2,1,3], k = 2
-Output: 4
-Explanation:
-There are 4 pairs that meet all the requirements:
-- nums[0] == nums[6], and 0 * 6 == 0, which is divisible by 2.
-- nums[2] == nums[3], and 2 * 3 == 6, which is divisible by 2.
-- nums[2] == nums[4], and 2 * 4 == 8, which is divisible by 2.
-- nums[3] == nums[4], and 3 * 4 == 12, which is divisible by 2.
+
+Input: mat = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [1,2,4,7,5,3,6,8,9]
 Example 2:
 
-Input: nums = [1,2,3,4], k = 1
-Output: 0
-Explanation: Since no value in nums is repeated, there are no pairs (i,j) that meet all the requirements.
+Input: mat = [[1,2],[3,4]]
+Output: [1,2,3,4]
  
 
 Constraints:
 
-1 <= nums.length <= 100
-1 <= nums[i], k <= 100
+m == mat.length
+n == mat[i].length
+1 <= m, n <= 104
+1 <= m * n <= 104
+-105 <= mat[i][j] <= 105
 
 """
 
