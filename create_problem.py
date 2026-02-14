@@ -12,16 +12,22 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def countNegatives(self, grid: List[List[int]]) -> int:
-        result=[]
-        total=0
-        for word in grid:
-            result=result+word
-        for i in range(len(result)):
-            if result[i]<0:
-                total+=1
-        return total
-
+    def imageSmoother(self, img: List[List[int]]) -> List[List[int]]:
+        result= [[0]*len(img[0]) for _ in range(len(img))]
+        nav=  [(-1,-1), (-1,0), (-1,1), (0,-1),  (0,0),  (0,1),(1,-1),  (1,0),  (1,1)]
+        for i in range(len(img)):
+            for j in range(len(img[0])):
+                summ = 0
+                no = 0
+                for x, y in nav:
+                    ii, jj = i + x, j + y
+                    
+                    if 0 <= ii < len(img) and 0 <= jj < len(img[0]):
+                        summ+= img[ii][jj]
+                        no += 1
+                result[i][j] = summ// no
+        
+        return result
 """
 
     # ---- README template ----
@@ -30,32 +36,41 @@ class Solution:
 ## Platform
 {platform}
 
-## 1351. Count Negative Numbers in a Sorted Matrix
+## 661. Image Smoother
 
-Given a m x n matrix grid which is sorted in non-increasing order both row-wise and column-wise, return the number of negative numbers in grid.
+An image smoother is a filter of the size 3 x 3 that can be applied to each cell of an image by rounding down the average of the cell and the eight surrounding cells (i.e., the average of the nine cells in the blue smoother). If one or more of the surrounding cells of a cell is not present, we do not consider it in the average (i.e., the average of the four cells in the red smoother).
+
+
+Given an m x n integer matrix img representing the grayscale of an image, return the image after applying the smoother on each cell of it.
 
  
 
 Example 1:
 
-Input: grid = [[4,3,2,-1],[3,2,1,-1],[1,1,-1,-2],[-1,-1,-2,-3]]
-Output: 8
-Explanation: There are 8 negatives number in the matrix.
+
+Input: img = [[1,1,1],[1,0,1],[1,1,1]]
+Output: [[0,0,0],[0,0,0],[0,0,0]]
+Explanation:
+For the points (0,0), (0,2), (2,0), (2,2): floor(3/4) = floor(0.75) = 0
+For the points (0,1), (1,0), (1,2), (2,1): floor(5/6) = floor(0.83333333) = 0
+For the point (1,1): floor(8/9) = floor(0.88888889) = 0
 Example 2:
 
-Input: grid = [[3,2],[1,0]]
-Output: 0
+
+Input: img = [[100,200,100],[200,50,200],[100,200,100]]
+Output: [[137,141,137],[141,138,141],[137,141,137]]
+Explanation:
+For the points (0,0), (0,2), (2,0), (2,2): floor((100+200+200+50)/4) = floor(137.5) = 137
+For the points (0,1), (1,0), (1,2), (2,1): floor((200+200+50+200+100+100)/6) = floor(141.666667) = 141
+For the point (1,1): floor((50+200+200+200+200+100+100+100+100)/9) = floor(138.888889) = 138
  
 
 Constraints:
 
-m == grid.length
-n == grid[i].length
-1 <= m, n <= 100
--100 <= grid[i][j] <= 100
- 
-
-Follow up: Could you find an O(n + m) solution?
+m == img.length
+n == img[i].length
+1 <= m, n <= 200
+0 <= img[i][j] <= 255
 """
 
     # ---- NOTES template ----
