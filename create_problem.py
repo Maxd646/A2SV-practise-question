@@ -12,16 +12,27 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 
-count= 0
-n= int(input())
-arra= list(map(int, input().split()))
-arra.sort()
-summ=0
-for j in range(len(arra)):
-    if arra[j]>summ:
-        summ+=1
-        count+=1
-print(count)
+class Solution:
+    def minimumSwap(self, s1: str, s2: str) -> int:
+        if len(s1)!=len(s2):
+            return -1
+        result=0
+        if s1==s2:
+            return 0
+        ax, ay=0, 0
+        for a, b in zip(s1, s2):
+            if a!=b:
+                if a=="x":
+                    ax+=1
+                else:
+                    ay+=1
+        if (ay+ax)%2!=0:
+            return -1
+        result=ay//2+ax//2
+        if ax%2==1:
+            result+=2
+
+        return result
 """
 
     # ---- README template ----
@@ -30,59 +41,37 @@ print(count)
 ## Platform
 {platform}
 
-## B. Polycarp Training
-    time limit per test   2 seconds
-    memory limit per test   256 megabytes
-    
-Polycarp wants to train before another programming competition. During the first day of his training he should solve exactly 1
- problem, during the second day — exactly 2
- problems, during the third day — exactly 3
- problems, and so on. During the k
--th day he should solve k
- problems.
+##  1247. Minimum Swaps to Make Strings Equal
 
-Polycarp has a list of n
- contests, the i
--th contest consists of ai
- problems. During each day Polycarp has to choose exactly one of the contests he didn't solve yet and solve it. He solves exactly k
- problems from this contest. Other problems are discarded from it. If there are no contests consisting of at least k
- problems that Polycarp didn't solve yet during the k
--th day, then Polycarp stops his training.
+You are given two strings s1 and s2 of equal length consisting of letters "x" and "y" only. Your task is to make these two strings equal to each other. You can swap any two characters that belong to different strings, which means: swap s1[i] and s2[j].
 
-How many days Polycarp can train if he chooses the contests optimally?
+Return the minimum number of swaps required to make s1 and s2 equal, or return -1 if it is impossible to do so.
 
-Input
-The first line of the input contains one integer n
- (1≤n≤2⋅105
-) — the number of contests.
+ 
 
-The second line of the input contains n
- integers a1,a2,…,an
- (1≤ai≤2⋅105
-) — the number of problems in the i
--th contest.
+Example 1:
 
-Output
-Print one integer — the maximum number of days Polycarp can train if he chooses the contests optimally.
+Input: s1 = "xx", s2 = "yy"
+Output: 1
+Explanation: Swap s1[0] and s2[1], s1 = "yx", s2 = "yx".
+Example 2:
 
-Examples
-InputCopy
-4
-3 1 4 1
-OutputCopy
-3
-InputCopy
-3
-1 1 1
-OutputCopy
-1
-InputCopy
-5
-1 1 1 2 2
-OutputCopy
-2
+Input: s1 = "xy", s2 = "yx"
+Output: 2
+Explanation: Swap s1[0] and s2[0], s1 = "yy", s2 = "xx".
+Swap s1[0] and s2[1], s1 = "xy", s2 = "xy".
+Note that you cannot swap s1[0] and s1[1] to make s1 equal to "yx", cause we can only swap chars in different strings.
+Example 3:
 
+Input: s1 = "xx", s2 = "xy"
+Output: -1
+ 
 
+Constraints:
+
+1 <= s1.length, s2.length <= 1000
+s1.length == s2.length
+s1, s2 only contain 'x' or 'y'.
 
 """
 
