@@ -11,18 +11,15 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
+
 class Solution:
-    def findRotation(self, mat: List[List[int]], target: List[List[int]]) -> bool:
-        n= len(mat)
-        for _ in range(4):
-            if mat==target:
-                return True
-            new= [[0]*n for i in range(n)]
-            for i in range(n):
-                for j in range(n):
-                    new[j][n-i-1]=mat[i][j]
-            mat=new
-        return False
+    def largestNumber(self, nums: List[int]) -> str:
+        result=""
+        nums=[str(num) for num in nums]
+        num= "".join(sorted(nums, key= lambda x:x*10, reverse =True))
+        if num[0]=="0":
+            return "0"
+        return num
 """
 
     # ---- README template ----
@@ -31,38 +28,28 @@ class Solution:
 ## Platform
 {platform}
 
-## 1886. Determine Whether Matrix Can Be Obtained By Rotation
+## 179. Largest Number
 
-Given two n x n binary matrices mat and target, return true if it is possible to make mat equal to target by rotating mat in 90-degree increments, or false otherwise.
+Given a list of non-negative integers nums, arrange them such that they form the largest number and return it.
+
+Since the result may be very large, so you need to return a string instead of an integer.
 
  
 
 Example 1:
 
-
-Input: mat = [[0,1],[1,0]], target = [[1,0],[0,1]]
-Output: true
-Explanation: We can rotate mat 90 degrees clockwise to make mat equal target.
+Input: nums = [10,2]
+Output: "210"
 Example 2:
 
-
-Input: mat = [[0,1],[1,1]], target = [[1,0],[0,1]]
-Output: false
-Explanation: It is impossible to make mat equal to target by rotating mat.
-Example 3:
-
-
-Input: mat = [[0,0,0],[0,1,0],[1,1,1]], target = [[1,1,1],[0,1,0],[0,0,0]]
-Output: true
-Explanation: We can rotate mat 90 degrees clockwise two times to make mat equal target.
+Input: nums = [3,30,34,5,9]
+Output: "9534330"
  
 
 Constraints:
 
-n == mat.length == target.length
-n == mat[i].length == target[i].length
-1 <= n <= 10
-mat[i][j] and target[i][j] are either 0 or 1.
+1 <= nums.length <= 100
+0 <= nums[i] <= 109
 
 """
 
