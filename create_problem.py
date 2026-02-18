@@ -12,13 +12,16 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 
-class Solution:
-    def largestPerimeter(self, nums: List[int]) -> int:
-        nums.sort()
-        for i in range(len(nums)-1, 1, -1):
-            if nums[i]<nums[i-1]+nums[i-2]:
-                return nums[i]+nums[i-1]+nums[i-2]
-        return 0
+count= 0
+n= int(input())
+arra= list(map(int, input().split()))
+arra.sort()
+summ=0
+for j in range(len(arra)):
+    if arra[j]>summ:
+        summ+=1
+        count+=1
+print(count)
 """
 
     # ---- README template ----
@@ -27,61 +30,59 @@ class Solution:
 ## Platform
 {platform}
 
-## 976.976. Largest Perimeter Triangle
-Solved
-Easy
-Topics
-premium lock icon
-Companies
-Given an integer array nums, return the largest perimeter of a triangle with a non-zero area, formed from three of these lengths. If it is impossible to form any triangle of a non-zero area, return 0.
+## B. Polycarp Training
+    time limit per test   2 seconds
+    memory limit per test   256 megabytes
+    
+Polycarp wants to train before another programming competition. During the first day of his training he should solve exactly 1
+ problem, during the second day — exactly 2
+ problems, during the third day — exactly 3
+ problems, and so on. During the k
+-th day he should solve k
+ problems.
 
- 
+Polycarp has a list of n
+ contests, the i
+-th contest consists of ai
+ problems. During each day Polycarp has to choose exactly one of the contests he didn't solve yet and solve it. He solves exactly k
+ problems from this contest. Other problems are discarded from it. If there are no contests consisting of at least k
+ problems that Polycarp didn't solve yet during the k
+-th day, then Polycarp stops his training.
 
-Example 1:
+How many days Polycarp can train if he chooses the contests optimally?
 
-Input: nums = [2,1,2]
-Output: 5
-Explanation: You can form a triangle with three side lengths: 1, 2, and 2.
-Example 2:
+Input
+The first line of the input contains one integer n
+ (1≤n≤2⋅105
+) — the number of contests.
 
-Input: nums = [1,2,1,10]
-Output: 0
-Explanation: 
-You cannot use the side lengths 1, 1, and 2 to form a triangle.
-You cannot use the side lengths 1, 1, and 10 to form a triangle.
-You cannot use the side lengths 1, 2, and 10 to form a triangle.
-As we cannot use any three side lengths to form a triangle of non-zero area, we return 0.
- 
+The second line of the input contains n
+ integers a1,a2,…,an
+ (1≤ai≤2⋅105
+) — the number of problems in the i
+-th contest.
 
-Constraints:
+Output
+Print one integer — the maximum number of days Polycarp can train if he chooses the contests optimally.
 
-3 <= nums.length <= 104
-1 <= nums[i] <= 106
+Examples
+InputCopy
+4
+3 1 4 1
+OutputCopy
+3
+InputCopy
+3
+1 1 1
+OutputCopy
+1
+InputCopy
+5
+1 1 1 2 2
+OutputCopy
+2
 
-Given an integer array nums, return the largest perimeter of a triangle with a non-zero area, formed from three of these lengths. If it is impossible to form any triangle of a non-zero area, return 0.
 
- 
-
-Example 1:
-
-Input: nums = [2,1,2]
-Output: 5
-Explanation: You can form a triangle with three side lengths: 1, 2, and 2.
-Example 2:
-
-Input: nums = [1,2,1,10]
-Output: 0
-Explanation: 
-You cannot use the side lengths 1, 1, and 2 to form a triangle.
-You cannot use the side lengths 1, 1, and 10 to form a triangle.
-You cannot use the side lengths 1, 2, and 10 to form a triangle.
-As we cannot use any three side lengths to form a triangle of non-zero area, we return 0.
- 
-
-Constraints:
-
-3 <= nums.length <= 104
-1 <= nums[i] <= 106
 
 """
 
