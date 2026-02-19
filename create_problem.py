@@ -11,28 +11,17 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-
-class Solution:
-    def minimumSwap(self, s1: str, s2: str) -> int:
-        if len(s1)!=len(s2):
-            return -1
-        result=0
-        if s1==s2:
-            return 0
-        ax, ay=0, 0
-        for a, b in zip(s1, s2):
-            if a!=b:
-                if a=="x":
-                    ax+=1
-                else:
-                    ay+=1
-        if (ay+ax)%2!=0:
-            return -1
-        result=ay//2+ax//2
-        if ax%2==1:
-            result+=2
-
-        return result
+ for _ in range(int(input())):
+    n, k=map(int, input().split())
+    arra=[]
+    for _ in range(n):
+        aa=list(map(int, input().split()))
+        arra.append(aa)
+    arra.sort()
+    for i in range(n):
+        if arra[i][0]<=k<=arra[i][1]:
+            k=max(arra[i][2], k)
+    print(k)
 """
 
     # ---- README template ----
@@ -41,38 +30,95 @@ class Solution:
 ## Platform
 {platform}
 
-##  1247. Minimum Swaps to Make Strings Equal
+##  D. This Is the Last Time
 
-You are given two strings s1 and s2 of equal length consisting of letters "x" and "y" only. Your task is to make these two strings equal to each other. You can swap any two characters that belong to different strings, which means: swap s1[i] and s2[j].
+   time      limit per test2 seconds
+    memory     limit per test256 megabytes
+    
+You are given n
+ casinos, numbered from 1
+ to n
+. Each casino is described by three integers: li
+, ri
+, and reali
+ (li≤reali≤ri
+). You initially have k
+ coins.
 
-Return the minimum number of swaps required to make s1 and s2 equal, or return -1 if it is impossible to do so.
+You can play at casino i
+ only if the current number of coins x
+ satisfies li≤x≤ri
+. After playing, your number of coins becomes reali
+.
 
- 
+You can visit the casinos in any order and are not required to visit all of them. Each casino can be visited no more than once.
 
-Example 1:
+Your task is to find the maximum final number of coins you can obtain.
 
-Input: s1 = "xx", s2 = "yy"
-Output: 1
-Explanation: Swap s1[0] and s2[1], s1 = "yx", s2 = "yx".
-Example 2:
+Input
+The first line contains a single integer t
+ (1≤t≤104
+) — the number of test cases.
 
-Input: s1 = "xy", s2 = "yx"
-Output: 2
-Explanation: Swap s1[0] and s2[0], s1 = "yy", s2 = "xx".
-Swap s1[0] and s2[1], s1 = "xy", s2 = "xy".
-Note that you cannot swap s1[0] and s1[1] to make s1 equal to "yx", cause we can only swap chars in different strings.
-Example 3:
+The first line of each test case contains two integers n
+ and k
+ (1≤n≤105
+, 0≤k≤109
+) — the number of casinos and the initial number of coins.
 
-Input: s1 = "xx", s2 = "xy"
-Output: -1
- 
+This is followed by n
+ lines. In the i
+-th line, there are three integers li
+, ri
+, reali
+ (0≤li≤reali≤ri≤109
+) — the parameters of the i
+-th casino.
 
-Constraints:
+It is guaranteed that the sum of all n
+ across all test cases does not exceed 105
+.
 
-1 <= s1.length, s2.length <= 1000
-s1.length == s2.length
-s1, s2 only contain 'x' or 'y'.
+Output
+For each test case, output a single integer — the maximum number of coins you can obtain after optimally choosing the order of visiting the casinos.
 
+Example
+InputCopy
+5
+3 1
+2 3 3
+1 2 2
+3 10 10
+1 0
+1 2 2
+1 2
+1 2 2
+2 2
+1 3 2
+2 4 4
+2 5
+1 10 5
+3 6 5
+OutputCopy
+10
+0
+2
+4
+5
+Note
+In the first test case, you can first play at the 2
+-nd casino. After that, you will have 2
+ coins. Then you can play at the 1
+-st casino, and the number of coins will increase to 3
+. Finally, after playing at the 3
+-rd casino, you will have 10
+ coins — this is the maximum possible amount.
+
+In the second test case, you have no money, so you cannot earn more.
+
+In the fourth test case, it is beneficial to play at the 2
+-nd casino right away and earn 4
+ coins.
 """
 
     # ---- NOTES template ----
