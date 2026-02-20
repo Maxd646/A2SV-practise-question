@@ -12,18 +12,16 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def customSortString(self, order: str, s: str) -> str:
-        count= Counter(s)
-        seen= set(s)
-        result=[]
-        need=Counter(s)-Counter(result)
-        for i in range(len(order)):
-            if order[i] in seen:
-                for j in range(count[order[i]]):
-                    result.append(order[i])
-        
-        extra=count-Counter(result)
-        return "".join(result)+ "".join(ch*num for ch, num in extra.items())
+    def hIndex(self, citations: List[int]) -> int:
+        if len(citations)==1 and citations[0]!=0:
+            return 1
+        citations.sort(reverse=True)
+        count=0
+        for i in range(len(citations)):
+            if count>=citations[i]:
+                return count
+            count+=1
+        return count
 """
 
     # ---- README template ----
@@ -32,44 +30,31 @@ class Solution:
 ## Platform
 {platform}
 
-##  791. Custom Sort String
+##  274. H-Index
 
-You are given two strings order and s. All the characters of order are unique and were sorted in some custom order previously.
+Given an array of integers citations where citations[i] is the number of citations a researcher received for their ith paper, return the researcher's h-index.
 
-Permute the characters of s so that they match the order that order was sorted. More specifically, if a character x occurs before a character y in order, then x should occur before y in the permuted string.
-
-Return any permutation of s that satisfies this property.
+According to the definition of h-index on Wikipedia: The h-index is defined as the maximum value of h such that the given researcher has published at least h papers that have each been cited at least h times.
 
  
 
 Example 1:
 
-Input: order = "cba", s = "abcd"
-
-Output: "cbad"
-
-Explanation: "a", "b", "c" appear in order, so the order of "a", "b", "c" should be "c", "b", and "a".
-
-Since "d" does not appear in order, it can be at any position in the returned string. "dcba", "cdba", "cbda" are also valid outputs.
-
+Input: citations = [3,0,6,1,5]
+Output: 3
+Explanation: [3,0,6,1,5] means the researcher has 5 papers in total and each of them had received 3, 0, 6, 1, 5 citations respectively.
+Since the researcher has 3 papers with at least 3 citations each and the remaining two with no more than 3 citations each, their h-index is 3.
 Example 2:
 
-Input: order = "bcafg", s = "abcd"
-
-Output: "bcad"
-
-Explanation: The characters "b", "c", and "a" from order dictate the order for the characters in s. The character "d" in s does not appear in order, so its position is flexible.
-
-Following the order of appearance in order, "b", "c", and "a" from s should be arranged as "b", "c", "a". "d" can be placed at any position since it's not in order. The output "bcad" correctly follows this rule. Other arrangements like "dbca" or "bcda" would also be valid, as long as "b", "c", "a" maintain their order.
-
+Input: citations = [1,3,1]
+Output: 1
  
 
 Constraints:
 
-1 <= order.length <= 26
-1 <= s.length <= 200
-order and s consist of lowercase English letters.
-All the characters of order are unique.
+n == citations.length
+1 <= n <= 5000
+0 <= citations[i] <= 1000
 
 """
 
