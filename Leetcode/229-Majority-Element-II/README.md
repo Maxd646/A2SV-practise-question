@@ -3,7 +3,8 @@
 ## Platform
 LeetCode
 
-## 229. Majority Element II
+##  229. Majority Element II
+
 Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times.
 
  
@@ -26,16 +27,5 @@ Constraints:
 
 1 <= nums.length <= 5 * 104
 -109 <= nums[i] <= 109
- 
 
-Follow up: Could you solve the problem in linear time and in O(1) space?
-
-## Approach
-Sorting, hashing
-
-## Complexity
-Time:O(n)
-Space:O(n)
-
-# problem link: 
-https://leetcode.com/problems/majority-element-ii/description/
+# problem link: https://leetcode.com/problems/majority-element-ii/description/
