@@ -12,16 +12,16 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def maxCoins(self, piles: List[int]) -> int:
-        piles.sort(reverse=True)
-        print(piles)
-        Max=0
-        count=0
-        for i in range(len(piles)):
-            if i%2==1 and count<len(piles)//3:
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        points.sort(key= lambda x:x[1])
+        end= points[0][1]
+        print(points)
+        count=1
+        for i in range(len(points)):
+            if points[i][0]>end:
                 count+=1
-                Max+=piles[i]
-        return Max
+                end=points[i][1]
+        return count
 """
 
     # ---- README template ----
@@ -30,44 +30,42 @@ class Solution:
 ## Platform
 {platform}
 
-##  1561. Maximum Number of Coins You Can Get
+##  452. Minimum Number of Arrows to Burst Balloons
 
-There are 3n piles of coins of varying size, you and your friends will take piles of coins as follows:
+There are some spherical balloons taped onto a flat wall that represents the XY-plane. The balloons are represented as a 2D integer array points where points[i] = [xstart, xend] denotes a balloon whose horizontal diameter stretches between xstart and xend. You do not know the exact y-coordinates of the balloons.
 
-In each step, you will choose any 3 piles of coins (not necessarily consecutive).
-Of your choice, Alice will pick the pile with the maximum number of coins.
-You will pick the next pile with the maximum number of coins.
-Your friend Bob will pick the last pile.
-Repeat until there are no more piles of coins.
-Given an array of integers piles where piles[i] is the number of coins in the ith pile.
+Arrows can be shot up directly vertically (in the positive y-direction) from different points along the x-axis. A balloon with xstart and xend is burst by an arrow shot at x if xstart <= x <= xend. There is no limit to the number of arrows that can be shot. A shot arrow keeps traveling up infinitely, bursting any balloons in its path.
 
-Return the maximum number of coins that you can have.
+Given the array points, return the minimum number of arrows that must be shot to burst all balloons.
 
  
 
 Example 1:
 
-Input: piles = [2,4,1,2,7,8]
-Output: 9
-Explanation: Choose the triplet (2, 7, 8), Alice Pick the pile with 8 coins, you the pile with 7 coins and Bob the last one.
-Choose the triplet (1, 2, 4), Alice Pick the pile with 4 coins, you the pile with 2 coins and Bob the last one.
-The maximum number of coins which you can have are: 7 + 2 = 9.
-On the other hand if we choose this arrangement (1, 2, 8), (2, 4, 7) you only get 2 + 4 = 6 coins which is not optimal.
+Input: points = [[10,16],[2,8],[1,6],[7,12]]
+Output: 2
+Explanation: The balloons can be burst by 2 arrows:
+- Shoot an arrow at x = 6, bursting the balloons [2,8] and [1,6].
+- Shoot an arrow at x = 11, bursting the balloons [10,16] and [7,12].
 Example 2:
 
-Input: piles = [2,4,5]
+Input: points = [[1,2],[3,4],[5,6],[7,8]]
 Output: 4
+Explanation: One arrow needs to be shot for each balloon for a total of 4 arrows.
 Example 3:
 
-Input: piles = [9,8,7,6,5,1,2,3,4]
-Output: 18
+Input: points = [[1,2],[2,3],[3,4],[4,5]]
+Output: 2
+Explanation: The balloons can be burst by 2 arrows:
+- Shoot an arrow at x = 2, bursting the balloons [1,2] and [2,3].
+- Shoot an arrow at x = 4, bursting the balloons [3,4] and [4,5].
  
 
 Constraints:
 
-3 <= piles.length <= 105
-piles.length % 3 == 0
-1 <= piles[i] <= 104
+1 <= points.length <= 105
+points[i].length == 2
+-231 <= xstart < xend <= 231 - 1
 
 """
 
