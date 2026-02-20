@@ -1,6 +1,6 @@
 # D. This Is the Last Time
 # Platform: Codeforces
- for _ in range(int(input())):
+for _ in range(int(input())):
     n, k=map(int, input().split())
     arra=[]
     for _ in range(n):
