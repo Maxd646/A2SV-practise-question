@@ -11,20 +11,9 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-n, m= map(int, input().split())
-aa= list(map(int, input().split()))
-if m==1:
-    print(max(aa)- min(aa))
-elif len(aa)==m:
-    print(0)
-else:
-    c= [aa[i]-aa[i-1] for i in range(1, len(aa))]
-    c.sort()
-    res=0
-    for i in range(len(c)-m+1):
-        res+=c[i]
-    print(res)
-
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        return haystack.find(needle)
 """
 
     # ---- README template ----
@@ -33,7 +22,30 @@ else:
 ## Platform
 {platform}
 
-## problem link: https://codeforces.com/problemset/problem/1197/C
+## 28. Find the Index of the First Occurrence in a String
+
+Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+ 
+
+Example 1:
+
+Input: haystack = "sadbutsad", needle = "sad"
+Output: 0
+Explanation: "sad" occurs at index 0 and 6.
+The first occurrence is at index 0, so we return 0.
+Example 2:
+
+Input: haystack = "leetcode", needle = "leeto"
+Output: -1
+Explanation: "leeto" did not occur in "leetcode", so we return -1.
+ 
+
+Constraints:
+
+1 <= haystack.length, needle.length <= 104
+haystack and needle consist of only lowercase English characters.
+
 """
 
     # ---- NOTES template ----
