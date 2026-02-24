@@ -11,17 +11,33 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-class Solution:
-    def maxArea(self, height: List[int]) -> int:
-        area= 0
-        left, right= 0, len(height)-1
-        while left<right:
-            area=max(area, (right-left)*min(height[left], height[right]))
-            if height[left]<height[right]:
-                left+=1
-            else:
-                right-=1
-        return area
+from collections import  Counter
+for _ in range(int(input())):
+    t=input()
+    s=input()
+    count=Counter(s)-Counter(t)
+    if  not Counter(s)>=Counter(t):
+        print("Impossible")
+    else:
+        res= sorted(count.items())
+        letter=[]
+        for ch, num in res:
+            letter.append(ch*num)
+        res="".join(letter)
+        ans=[]
+        i=0
+        for ch in res:
+            while i<len(t) and t[i]<=ch:
+                ans.append(t[i])
+                i+=1
+            ans.append(ch)
+        # remining 
+        while i<len(t):
+            ans.append(t[i])
+            i+=1
+    
+        print("".join(ans))
+
 """
 
     # ---- README template ----
@@ -30,37 +46,9 @@ class Solution:
 ## Platform
 {platform}
 
-## 11. Container With Most Water
+## A. Needle in a Haystack
 
-You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
-
-Find two lines that together with the x-axis form a container, such that the container contains the most water.
-
-Return the maximum amount of water a container can store.
-
-Notice that you may not slant the container.
-
- 
-
-Example 1:
-
-
-Input: height = [1,8,6,2,5,4,8,3,7]
-Output: 49
-Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.
-Example 2:
-
-Input: height = [1,1]
-Output: 1
- 
-
-Constraints:
-
-n == height.length
-2 <= n <= 105
-0 <= height[i] <= 104
-
-# probelm link:https://leetcode.com/problems/container-with-most-water/description/
+# probelm link:https://codeforces.com/problemset/problem/2174/A
 """
 
     # ---- NOTES template ----
