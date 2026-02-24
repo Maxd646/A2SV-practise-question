@@ -12,27 +12,16 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def numRescueBoats(self, people: List[int], limit: int) -> int:
-        people.sort()
-        if all(num>=limit for num in people):
-            return len(people)
-        left, right=0, len(people)-1
-        ans=0
+    def maxArea(self, height: List[int]) -> int:
+        area= 0
+        left, right= 0, len(height)-1
         while left<right:
-            if people[left]+people[right]>limit and left+1==right:
-                ans+=2
-                break
-            elif  people[left]+people[right]<=limit and left+2==right:
-                ans+=2
-                break
-            elif people[left]+people[right]>limit:
-                ans+=1
-                right-=1
-            else:
-                ans+=1
+            area=max(area, (right-left)*min(height[left], height[right]))
+            if height[left]<height[right]:
                 left+=1
+            else:
                 right-=1
-        return ans
+        return area
 """
 
     # ---- README template ----
@@ -41,36 +30,37 @@ class Solution:
 ## Platform
 {platform}
 
-## 881. Boats to Save People
+## 11. Container With Most Water
 
-You are given an array people where people[i] is the weight of the ith person, and an infinite number of boats where each boat can carry a maximum weight of limit. Each boat carries at most two people at the same time, provided the sum of the weight of those people is at most limit.
+You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
 
-Return the minimum number of boats to carry every given person.
+Find two lines that together with the x-axis form a container, such that the container contains the most water.
+
+Return the maximum amount of water a container can store.
+
+Notice that you may not slant the container.
 
  
 
 Example 1:
 
-Input: people = [1,2], limit = 3
-Output: 1
-Explanation: 1 boat (1, 2)
+
+Input: height = [1,8,6,2,5,4,8,3,7]
+Output: 49
+Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.
 Example 2:
 
-Input: people = [3,2,2,1], limit = 3
-Output: 3
-Explanation: 3 boats (1, 2), (2) and (3)
-Example 3:
-
-Input: people = [3,5,3,4], limit = 5
-Output: 4
-Explanation: 4 boats (3), (3), (4), (5)
+Input: height = [1,1]
+Output: 1
  
 
 Constraints:
 
-1 <= people.length <= 5 * 104
-1 <= people[i] <= limit <= 3 * 104
+n == height.length
+2 <= n <= 105
+0 <= height[i] <= 104
 
+# probelm link:https://leetcode.com/problems/container-with-most-water/description/
 """
 
     # ---- NOTES template ----
