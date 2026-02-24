@@ -11,13 +11,21 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-class Solution:
-    def judgeSquareSum(self, c: int) -> bool:
-        for i in range(int(c**0.5)+1):
-            a= c-(i**2)
-            if a**0.5==math.ceil(a**0.5) and a>=0:
-                return True
-        return False
+for _ in range(int(input())):
+    a=input()
+    ans=[]
+    i=0
+    if len(a)==1:
+        ans.append(a[0])
+    else:
+        while i<len(a)-1:
+            if a[i]==a[i+1]:
+                i+=2
+            else:
+                ans.append(a[i])
+                i+=1
+    res="".join(ans)+(a[i:] if len(a)>1 else "")
+    print("".join(sorted(list(set(res)))))
 
 """
 
@@ -26,29 +34,8 @@ class Solution:
 
 ## Platform
 {platform}
-
-## 633. Sum of Square Numbers
-
-Given a non-negative integer c, decide whether there're two integers a and b such that a2 + b2 = c.
-
- 
-
-Example 1:
-
-Input: c = 5
-Output: true
-Explanation: 1 * 1 + 2 * 2 = 5
-Example 2:
-
-Input: c = 3
-Output: false
- 
-
-Constraints:
-
-0 <= c <= 231 - 1
-
-# probelm link:https://codeforces.com/problemset/problem/2174/A
+## A. Broken Keyboard
+## problem link: https://codeforces.com/contest/1251
 """
 
     # ---- NOTES template ----
