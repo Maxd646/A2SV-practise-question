@@ -11,21 +11,22 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-for _ in range(int(input())):
-    a=input()
-    ans=[]
-    i=0
-    if len(a)==1:
-        ans.append(a[0])
-    else:
-        while i<len(a)-1:
-            if a[i]==a[i+1]:
-                i+=2
-            else:
-                ans.append(a[i])
-                i+=1
-    res="".join(ans)+(a[i:] if len(a)>1 else "")
-    print("".join(sorted(list(set(res)))))
+
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        left, right=0, 0
+        pre=[0]
+        m=0
+        while right<len(s):
+            while right<=s.rindex(s[left]):
+                m=max(s.rindex(s[right]), m)
+                left=m
+                right+=1
+            pre.append(m+1)
+            left=m+1
+            right=m+1
+        ans=[pre[i+1]-pre[i] for i in range(len(pre)-1)]
+        return ans 
 
 """
 
@@ -34,8 +35,36 @@ for _ in range(int(input())):
 
 ## Platform
 {platform}
-## A. Broken Keyboard
-## problem link: https://codeforces.com/contest/1251
+## 763. Partition Labels
+
+You are given a string s. We want to partition the string into as many parts as possible so that each letter appears in at most one part. For example, the string "ababcc" can be partitioned into ["abab", "cc"], but partitions such as ["aba", "bcc"] or ["ab", "ab", "cc"] are invalid.
+
+Note that the partition is done so that after concatenating all the parts in order, the resultant string should be s.
+
+Return a list of integers representing the size of these parts.
+
+ 
+
+Example 1:
+
+Input: s = "ababcbacadefegdehijhklij"
+Output: [9,7,8]
+Explanation:
+The partition is "ababcbaca", "defegde", "hijhklij".
+This is a partition so that each letter appears in at most one part.
+A partition like "ababcbacadefegde", "hijhklij" is incorrect, because it splits s into less parts.
+Example 2:
+
+Input: s = "eccbbbbdec"
+Output: [10]
+ 
+
+Constraints:
+
+1 <= s.length <= 500
+s consists of lowercase English letters.
+
+## problem link: https://leetcode.com/problems/partition-labels/description/
 """
 
     # ---- NOTES template ----
