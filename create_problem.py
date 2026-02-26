@@ -11,18 +11,20 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-n, m = map(int, input().split())
-aa= list(map(int, input().split()))
-ans=0
-summ=0
-left=0
-for right in range(len(aa)):
-    summ+=aa[right]
-    while summ>m:
-        summ-=aa[left]
-        left+=1
-    ans+=right-left+1
-print(ans)
+class Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+        ans=0
+        left=0
+        summ=0
+        for right in range(len(nums)):
+            summ+=nums[right]
+            while summ<right-left:
+                summ-=nums[left]
+                left+=1
+            ans=max(ans, summ)
+        if nums.count(0)==0:
+            return ans-1
+        return ans
 """
 
     # ---- README template ----
@@ -30,9 +32,37 @@ print(ans)
 
 ## Platform
 {platform}
-## C. Number of Segments with Small Sum
+## 1493. Longest Subarray of 1's After Deleting One Element
 
-## problem link:https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/C
+Given a binary array nums, you should delete one element from it.
+
+Return the size of the longest non-empty subarray containing only 1's in the resulting array. Return 0 if there is no such subarray.
+
+ 
+
+Example 1:
+
+Input: nums = [1,1,0,1]
+Output: 3
+Explanation: After deleting the number in position 2, [1,1,1] contains 3 numbers with value of 1's.
+Example 2:
+
+Input: nums = [0,1,1,1,0,1,1,0,1]
+Output: 5
+Explanation: After deleting the number in position 4, [0,1,1,1,1,1,0,1] longest subarray with value of 1's is [1,1,1,1,1].
+Example 3:
+
+Input: nums = [1,1,1]
+Output: 2
+Explanation: You must delete one element.
+ 
+
+Constraints:
+
+1 <= nums.length <= 105
+nums[i] is either 0 or 1.
+
+## problem link:https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/description/
 """
 
     # ---- NOTES template ----
