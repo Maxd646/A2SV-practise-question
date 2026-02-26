@@ -11,14 +11,17 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-n, m= map(int, input().split())
+n, m = map(int, input().split())
 aa= list(map(int, input().split()))
-bb= list(map(int, input().split()))
-from collections import Counter
-mm= Counter(bb)
 ans=0
-for i in range(len(aa)):
-    ans+=mm[aa[i]]
+summ=0
+left=0
+for right in range(len(aa)):
+    summ+=aa[right]
+    while summ>m:
+        summ-=aa[left]
+        left+=1
+    ans+=right-left+1
 print(ans)
 """
 
@@ -27,9 +30,9 @@ print(ans)
 
 ## Platform
 {platform}
-## (C) Number of Equal
+## C. Number of Segments with Small Sum
 
-## problem link: https://codeforces.com/edu/course/2/lesson/9/1/practice/contest/307092/problem/C
+## problem link:https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/C
 """
 
     # ---- NOTES template ----
