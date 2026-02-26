@@ -13,33 +13,17 @@ def create_files(base, folder, filename, title, platform):
 # Platform: {platform}
 
 for _ in range(int(input())):
-    n = int(input())
-    a = list(map(int, input().split()))
-    b = list(map(int, input().split()))
-    ans = []
-
-    for i in range(n):
-        for j in range(n - i - 1):
-            if a[j] > a[j + 1]:
-                a[j], a[j + 1] = a[j + 1], a[j]
-                ans.append([1, j + 1])
-
-    for i in range(n):
-        for j in range(n - i - 1):
-            if b[j] > b[j + 1]:
-                b[j], b[j + 1] = b[j + 1], b[j]
-                ans.append([2, j + 1])
-              
-    for i in range(n):
-        if a[i] > b[i]:
-            temp = a[i]
-            a[i] = b[i]
-            b[i] = temp
-            ans.append([3, i + 1])
-          
+    n= int(input())
+    aa= list(map(int, input().split()))   
+    ans=[]
+    ans.append(aa[0])
+    for i in range(1, len(aa)-1):
+        if aa[i-1]<aa[i] and aa[i]>aa[i+1] or aa[i-1]>aa[i] and aa[i]<aa[i+1] :
+            ans.append(aa[i])
+    if ans[-1]!=aa[-1]:
+        ans.append(aa[-1])
     print(len(ans))
-    for j in ans:
-        print(*j)
+    print(*ans)
 """
 
     # ---- README template ----
@@ -47,9 +31,9 @@ for _ in range(int(input())):
 
 ## Platform
 {platform}
-## D. 1709
+## B. Most socially-distanced subsequence
 
-## problem link: https://codeforces.com/contest/2121/problem/D
+## problem link: https://codeforces.com/problemset/problem/1364/B
 """
 
     # ---- NOTES template ----
