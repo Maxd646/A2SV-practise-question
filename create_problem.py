@@ -13,16 +13,12 @@ def create_files(base, folder, filename, title, platform):
 # Platform: {platform}
 n, m= map(int, input().split())
 aa= list(map(int, input().split()))
-summ=0
+bb= list(map(int, input().split()))
+from collections import Counter
+mm= Counter(bb)
 ans=0
-mm=len(aa)
-left=0
 for i in range(len(aa)):
-    summ+=aa[i]
-    while summ>=m:
-        ans+=(mm-i)
-        summ-=aa[left]
-        left+=1
+    ans+=mm[aa[i]]
 print(ans)
 """
 
@@ -31,9 +27,9 @@ print(ans)
 
 ## Platform
 {platform}
-## (D) Number of Segments with Big Sum
+## (C) Number of Equal
 
-## problem link: https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/D
+## problem link: https://codeforces.com/edu/course/2/lesson/9/1/practice/contest/307092/problem/C
 """
 
     # ---- NOTES template ----
