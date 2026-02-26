@@ -11,19 +11,19 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-
-for _ in range(int(input())):
-    n= int(input())
-    aa= list(map(int, input().split()))   
-    ans=[]
-    ans.append(aa[0])
-    for i in range(1, len(aa)-1):
-        if aa[i-1]<aa[i] and aa[i]>aa[i+1] or aa[i-1]>aa[i] and aa[i]<aa[i+1] :
-            ans.append(aa[i])
-    if ans[-1]!=aa[-1]:
-        ans.append(aa[-1])
-    print(len(ans))
-    print(*ans)
+n, m= map(int, input().split())
+aa= list(map(int, input().split()))
+summ=0
+ans=0
+mm=len(aa)
+left=0
+for i in range(len(aa)):
+    summ+=aa[i]
+    while summ>=m:
+        ans+=(mm-i)
+        summ-=aa[left]
+        left+=1
+print(ans)
 """
 
     # ---- README template ----
@@ -31,9 +31,9 @@ for _ in range(int(input())):
 
 ## Platform
 {platform}
-## B. Most socially-distanced subsequence
+## (D) Number of Segments with Big Sum
 
-## problem link: https://codeforces.com/problemset/problem/1364/B
+## problem link: https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/D
 """
 
     # ---- NOTES template ----
