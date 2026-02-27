@@ -11,47 +11,23 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-from collections import Counter
+class Solution:
+    def subarraysWithKDistinct(self, nums: List[int], k: int) -> int:
+        def atmost(nums, k):
+            count= Counter()
+            ans=0
+            left=0
+            for r in range(len(nums)):
+                count[nums[r]]+=1
+                while len(count)>k:
+                    count[nums[left]]-=1
+                    if count[nums[left]]==0:
+                        del count[nums[left]]
+                    left+=1
+                ans+=r-left+1
+            return ans
+        return atmost(nums, k)- atmost(nums, k-1)
 
-for _ in range(int(input())):
-    n, l, r = map(int, input().split())
-    colors = list(map(int, input().split()))
-
-    left = Counter(colors[:l])
-    right = Counter(colors[l:])
-
-
-    for c in list(left.keys()):
-        m = min(left[c], right[c])
-        left[c] -= m
-        right[c] -= m
-        if left[c] == 0:
-            del left[c]
-        if right[c] == 0:
-            del right[c]
-
-    L = sum(left.values())
-    R = sum(right.values())
-
-    if L < R:
-        left, right = right, left
-        L, R = R, L
-
-    cost = 0
-    diff = L - R
-    for c in left:
-        while left[c] >= 2 and diff > 0:
-            left[c] -= 2
-            diff -= 2
-            cost += 1
-
-
-    cost += diff // 2
-
-    remaining = sum(left.values()) + sum(right.values())
-    cost += remaining // 2
-
-    print(cost)
 """
 
     # ---- README template ----
@@ -59,10 +35,36 @@ for _ in range(int(input())):
 
 ## Platform
 {platform}
-##  D. Phoenix and Socks
+##  992. Subarrays with K Different Integers
+
+Given an integer array nums and an integer k, return the number of good subarrays of nums.
+
+A good array is an array where the number of different integers in that array is exactly k.
+
+For example, [1,2,3,1,2] has 3 different integers: 1, 2, and 3.
+A subarray is a contiguous part of an array.
+
+ 
+
+Example 1:
+
+Input: nums = [1,2,1,2,3], k = 2
+Output: 7
+Explanation: Subarrays formed with exactly 2 different integers: [1,2], [2,1], [1,2], [2,3], [1,2,1], [2,1,2], [1,2,1,2]
+Example 2:
+
+Input: nums = [1,2,1,3,4], k = 3
+Output: 3
+Explanation: Subarrays formed with exactly 3 different integers: [1,2,1,3], [2,1,3], [1,3,4].
+ 
+
+Constraints:
+
+1 <= nums.length <= 2 * 104
+1 <= nums[i], k <= nums.length
 
 
-## problem link:https://codeforces.com/contest/1515/problem/D
+## problem link:https://leetcode.com/problems/subarrays-with-k-different-integers/description/
 """
 
     # ---- NOTES template ----
