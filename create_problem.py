@@ -11,22 +11,28 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-class Solution:
-    def subarraysWithKDistinct(self, nums: List[int], k: int) -> int:
-        def atmost(nums, k):
-            count= Counter()
-            ans=0
-            left=0
-            for r in range(len(nums)):
-                count[nums[r]]+=1
-                while len(count)>k:
-                    count[nums[left]]-=1
-                    if count[nums[left]]==0:
-                        del count[nums[left]]
-                    left+=1
-                ans+=r-left+1
-            return ans
-        return atmost(nums, k)- atmost(nums, k-1)
+for _ in range(int(input())):
+    n, k= map(int, input().split())
+    s= input()
+    if "B"*k in s:
+        print(0)
+    elif len(s)==k:
+        print(s.count("W"))
+    elif s.count("B")==0:
+        print(k)
+    else:
+        left=0
+        ans= k
+        summ=0
+        for r in range(n):
+            if s[r]=="B":
+                summ+=1
+            if r-left+1>=k:
+                ans= min(ans, k-summ)
+                summ-=(1 if s[left]=="B" else 0)
+                left+=1
+        print(ans)
+            
 
 """
 
@@ -35,36 +41,10 @@ class Solution:
 
 ## Platform
 {platform}
-##  992. Subarrays with K Different Integers
-
-Given an integer array nums and an integer k, return the number of good subarrays of nums.
-
-A good array is an array where the number of different integers in that array is exactly k.
-
-For example, [1,2,3,1,2] has 3 different integers: 1, 2, and 3.
-A subarray is a contiguous part of an array.
-
- 
-
-Example 1:
-
-Input: nums = [1,2,1,2,3], k = 2
-Output: 7
-Explanation: Subarrays formed with exactly 2 different integers: [1,2], [2,1], [1,2], [2,3], [1,2,1], [2,1,2], [1,2,1,2]
-Example 2:
-
-Input: nums = [1,2,1,3,4], k = 3
-Output: 3
-Explanation: Subarrays formed with exactly 3 different integers: [1,2,1,3], [2,1,3], [1,3,4].
- 
-
-Constraints:
-
-1 <= nums.length <= 2 * 104
-1 <= nums[i], k <= nums.length
+##  D. Black and White Stripe
 
 
-## problem link:https://leetcode.com/problems/subarrays-with-k-different-integers/description/
+## problem link:https://codeforces.com/problemset/problem/1690/D
 """
 
     # ---- NOTES template ----
