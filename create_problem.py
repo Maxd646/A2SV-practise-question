@@ -11,29 +11,25 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-for _ in range(int(input())):
-    n, k= map(int, input().split())
-    s= input()
-    if "B"*k in s:
-        print(0)
-    elif len(s)==k:
-        print(s.count("W"))
-    elif s.count("B")==0:
-        print(k)
-    else:
-        left=0
-        ans= k
-        summ=0
-        for r in range(n):
-            if s[r]=="B":
-                summ+=1
-            if r-left+1>=k:
-                ans= min(ans, k-summ)
-                summ-=(1 if s[left]=="B" else 0)
-                left+=1
-        print(ans)
-            
-
+from collections import defaultdict
+n, k= map(int, input().split())
+aa= list(map(int, input().split()))
+count= defaultdict(int)
+ans=0
+left=0
+dic=0
+for r in range(len(aa)):
+    if count[aa[r]]==0:
+        dic+=1
+    count[aa[r]]+=1
+    while dic>k:
+        count[aa[left]]-=1
+        if count[aa[left]]==0:
+            dic-=1
+        left+=1
+    ans+=r-left+1
+print(ans)
+        
 """
 
     # ---- README template ----
@@ -41,10 +37,10 @@ for _ in range(int(input())):
 
 ## Platform
 {platform}
-##  D. Black and White Stripe
+## E. Segments with Small Set
 
 
-## problem link:https://codeforces.com/problemset/problem/1690/D
+## problem link:https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/E
 """
 
     # ---- NOTES template ----
