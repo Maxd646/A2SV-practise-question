@@ -12,17 +12,15 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
-        re= [1]* len(nums)
-        prif=sf=1
-        for i in range(len(nums)):
-            re[i]=prif
-            prif*=nums[i]
-
-        for i in range(len(nums)-1, -1, -1):
-            re[i]*= sf
-            sf*=nums[i]
-        return re
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        n, summ, pre=0, 0, {0:1}
+        for num in nums:
+            summ+=num
+            if summ-k in pre:
+                n+=pre[summ-k]
+            pre[summ]=pre.get(summ, 0)+1
+        return n
+        
         
 """
 
@@ -31,37 +29,31 @@ class Solution:
 
 ## Platform
 {platform}
-## 238. Product of Array Except Self
+## 560. Subarray Sum Equals K
 
-Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
 
-The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
-
-You must write an algorithm that runs in O(n) time and without using the division operation.
+A subarray is a contiguous non-empty sequence of elements within an array.
 
  
 
 Example 1:
 
-Input: nums = [1,2,3,4]
-Output: [24,12,8,6]
+Input: nums = [1,1,1], k = 2
+Output: 2
 Example 2:
 
-Input: nums = [-1,1,0,-3,3]
-Output: [0,0,9,0,0]
+Input: nums = [1,2,3], k = 3
+Output: 2
  
 
 Constraints:
 
-2 <= nums.length <= 105
--30 <= nums[i] <= 30
-The input is generated such that answer[i] is guaranteed to fit in a 32-bit integer.
- 
+1 <= nums.length <= 2 * 104
+-1000 <= nums[i] <= 1000
+-107 <= k <= 107
 
-Follow up: Can you solve the problem in O(1) extra space complexity? (The output array does not count as extra space for space complexity analysis.)
-
-
-## problem link:https://leetcode.com/problems/product-of-array-except-self/description/
+## problem link:https://leetcode.com/problems/subarray-sum-equals-k/description/
 """
 
     # ---- NOTES template ----
