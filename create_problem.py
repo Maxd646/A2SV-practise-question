@@ -12,15 +12,22 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
-        maxsum = nums[0]
-        cursum = nums[0]
+    def shiftingLetters(self, s: str, shifts: List[List[int]]) -> str:
+        letters="abcdefghijklmnopqrstuvwxyz"
+        s=list(s)
+        aa=[0]*(len(s)+1)
 
-        for i in range(1, len(nums)):
-            cursum = max(nums[i], cursum + nums[i])
-            maxsum = max(maxsum, cursum)
+        for i, j, k in shifts:
+            if j<len(aa)-1:
+                aa[j+1]+=(1 if k==0 else -1)
 
-        return maxsum
+            aa[i]-=(1 if k==0 else -1)
+            
+        aa=list(accumulate(aa))  
+        ans=""
+        for i in range(len(s)):
+            ans+=letters[(aa[i]+letters.index(s[i]))%26]
+        return ans
 """
 
     # ---- README template ----
@@ -28,38 +35,40 @@ class Solution:
 
 ## Platform
 {platform}
-## 53. Maximum Subarray
+## 2381. Shifting Letters II
 
-Given an integer array nums, find the subarray with the largest sum, and return its sum.
+You are given a string s of lowercase English letters and a 2D integer array shifts where shifts[i] = [starti, endi, directioni]. For every i, shift the characters in s from the index starti to the index endi (inclusive) forward if directioni = 1, or shift the characters backward if directioni = 0.
+
+Shifting a character forward means replacing it with the next letter in the alphabet (wrapping around so that 'z' becomes 'a'). Similarly, shifting a character backward means replacing it with the previous letter in the alphabet (wrapping around so that 'a' becomes 'z').
+
+Return the final string after all such shifts to s are applied.
 
  
 
 Example 1:
 
-Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
-Output: 6
-Explanation: The subarray [4,-1,2,1] has the largest sum 6.
+Input: s = "abc", shifts = [[0,1,0],[1,2,1],[0,2,1]]
+Output: "ace"
+Explanation: Firstly, shift the characters from index 0 to index 1 backward. Now s = "zac".
+Secondly, shift the characters from index 1 to index 2 forward. Now s = "zbd".
+Finally, shift the characters from index 0 to index 2 forward. Now s = "ace".
 Example 2:
 
-Input: nums = [1]
-Output: 1
-Explanation: The subarray [1] has the largest sum 1.
-Example 3:
-
-Input: nums = [5,4,-1,7,8]
-Output: 23
-Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
+Input: s = "dztz", shifts = [[0,0,0],[1,1,1]]
+Output: "catz"
+Explanation: Firstly, shift the characters from index 0 to index 0 backward. Now s = "cztz".
+Finally, shift the characters from index 1 to index 1 forward. Now s = "catz".
  
 
 Constraints:
 
-1 <= nums.length <= 105
--104 <= nums[i] <= 104
- 
+1 <= s.length, shifts.length <= 5 * 104
+shifts[i].length == 3
+0 <= starti <= endi < s.length
+0 <= directioni <= 1
+s consists of lowercase English letters.
 
-Follow up: If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
-
-## problem link:https://leetcode.com/problems/maximum-subarray/
+## problem link:https://leetcode.com/problems/shifting-letters-ii/description/
 """
 
     # ---- NOTES template ----
