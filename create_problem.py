@@ -13,38 +13,29 @@ def create_files(base, folder, filename, title, platform):
 # Platform: {platform}
 import sys
 input = sys.stdin.readline
-
-t = int(input())
-
-for _ in range(t):
-    n = int(input())
-    a = input().strip()
-    b = input().strip()
-
-    balance = [0] * n 
-    curr = 0
-    for i in range(n):
-        if a[i] == '1':
-            curr += 1
-        else:
-            curr -= 1
-        balance[i] = curr
-
-    flipped = False
-    poss = True
-
-    for i in range(n - 1, -1, -1): 
-        current_bit = a[i]
-        if flipped:
-            current_bit = '1' if current_bit == '0' else '0' 
-
-        if current_bit != b[i]:
-            if balance[i] != 0:
-                poss = False
-                break
-            flipped = not flipped
-
-    print("YES" if poss else "NO")
+from collections import defaultdict
+ 
+n, k = map(int, input().split())
+a = list(map(int, input().split()))
+ 
+freq = defaultdict(int)
+left, unique, best_length, best_left, best_right = 0,0,0,0,0
+ 
+for right in range(n):
+    if freq[a[right]] == 0:
+        unique += 1
+    freq[a[right]] += 1
+ 
+    while unique > k:
+        freq[a[left]] -= 1
+        if freq[a[left]] == 0:
+            unique -= 1
+        left += 1
+    if right - left + 1 > best_length:  #current window is valid
+        best_length = right - left + 1
+        best_left = left
+        best_right = right
+print(best_left + 1, best_right + 1)  #1-based idx
     
 """
 
@@ -53,9 +44,9 @@ for _ in range(t):
 
 ## Platform
 {platform}
-## 1413.B. Flip the Bits
+## D. Longest k-Good Segment
 
-## problem link:https://codeforces.com/contest/1504/problem/B
+## problem link:https://codeforces.com/contest/616/problem/D
 """
 
     # ---- NOTES template ----
