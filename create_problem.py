@@ -11,11 +11,40 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-class Solution:
-    def minStartValue(self, nums: List[int]) -> int:
-        nums=accumulate(nums)
-        aa=min(nums)
-        return 1-aa if aa<0 else 1
+import sys
+input = sys.stdin.readline
+
+t = int(input())
+
+for _ in range(t):
+    n = int(input())
+    a = input().strip()
+    b = input().strip()
+
+    balance = [0] * n 
+    curr = 0
+    for i in range(n):
+        if a[i] == '1':
+            curr += 1
+        else:
+            curr -= 1
+        balance[i] = curr
+
+    flipped = False
+    poss = True
+
+    for i in range(n - 1, -1, -1): 
+        current_bit = a[i]
+        if flipped:
+            current_bit = '1' if current_bit == '0' else '0' 
+
+        if current_bit != b[i]:
+            if balance[i] != 0:
+                poss = False
+                break
+            flipped = not flipped
+
+    print("YES" if poss else "NO")
     
 """
 
@@ -24,45 +53,9 @@ class Solution:
 
 ## Platform
 {platform}
-## 1413. Minimum Value to Get Positive Step by Step Sum
+## 1413.B. Flip the Bits
 
-Given an array of integers nums, you start with an initial positive value startValue.
-
-In each iteration, you calculate the step by step sum of startValue plus elements in nums (from left to right).
-
-Return the minimum positive value of startValue such that the step by step sum is never less than 1.
-
- 
-
-Example 1:
-
-Input: nums = [-3,2,-3,4,2]
-Output: 5
-Explanation: If you choose startValue = 4, in the third iteration your step by step sum is less than 1.
-step by step sum
-startValue = 4 | startValue = 5 | nums
-  (4 -3 ) = 1  | (5 -3 ) = 2    |  -3
-  (1 +2 ) = 3  | (2 +2 ) = 4    |   2
-  (3 -3 ) = 0  | (4 -3 ) = 1    |  -3
-  (0 +4 ) = 4  | (1 +4 ) = 5    |   4
-  (4 +2 ) = 6  | (5 +2 ) = 7    |   2
-Example 2:
-
-Input: nums = [1,2]
-Output: 1
-Explanation: Minimum start value should be positive. 
-Example 3:
-
-Input: nums = [1,-2,-3]
-Output: 5
- 
-
-Constraints:
-
-1 <= nums.length <= 100
--100 <= nums[i] <= 100
-
-## problem link:https://leetcode.com/problems/minimum-value-to-get-positive-step-by-step-sum/description
+## problem link:https://codeforces.com/contest/1504/problem/B
 """
 
     # ---- NOTES template ----
