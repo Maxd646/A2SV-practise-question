@@ -1,0 +1,4 @@
+# Notes
+
+- Observations
+- Mistakes

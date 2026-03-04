@@ -11,24 +11,15 @@ def create_files(base, folder, filename, title, platform):
     # ---- Solution template ----
     solution_template = f"""# {title}
 # Platform: {platform}
-a , b , c = list(map(int, input().split()))
-r= 200005
-arr = [0] *r
-for _ in range(a):
-    x , y = list(map(int , input().split()))
-    arr[x] += 1
-    arr[y + 1]-= 1
-for i in range(1 , r):
-    arr[i] += arr[i - 1]
-f = [0] * r
-for t in range(r):
-    if arr[t] >= b :
-        f[t] += 1
-for t in range(1 , r):
-    f[t] +=f[t - 1]
-for g in range(c):
-    x, y = list(map(int , input().split()))
-    print(f[y] - f[x - 1])
+from itertools import accumulate
+for _ in range(int(input())):
+    input()
+    aa=list(map(int, input().split()))
+    input()
+    bb=list(map(int, input().split()))
+    ans=max(max(list(accumulate(aa))), 0)+ max(max(list(accumulate(bb))), 0)
+    
+    print(ans if ans>=0 else 0 )
     
 """
 
@@ -37,9 +28,9 @@ for g in range(c):
 
 ## Platform
 {platform}
-## B. Karen and Coffee
+## B. Red and Blue
 
-## problem link:https://codeforces.com/contest/816/problem/B
+## problem link:https://codeforces.com/contest/1469/problem/B
 """
 
     # ---- NOTES template ----
