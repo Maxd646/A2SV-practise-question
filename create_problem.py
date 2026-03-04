@@ -12,16 +12,15 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
-        summ,pre=0, {0:1}
-        n=0
-        for i in range(len(nums)):
-            summ+=nums[i]
-            if summ-goal in pre:
-                n+=pre[summ-goal]
-            pre[summ]=pre.get(summ, 0)+1
-        return n
-  
+    def maxSubArray(self, nums: List[int]) -> int:
+        maxsum = nums[0]
+        cursum = nums[0]
+
+        for i in range(1, len(nums)):
+            cursum = max(nums[i], cursum + nums[i])
+            maxsum = max(maxsum, cursum)
+
+        return maxsum
 """
 
     # ---- README template ----
@@ -29,36 +28,38 @@ class Solution:
 
 ## Platform
 {platform}
-## 930. Binary Subarrays With Sum
+## 53. Maximum Subarray
 
-Given a binary array nums and an integer goal, return the number of non-empty subarrays with a sum goal.
-
-A subarray is a contiguous part of the array.
+Given an integer array nums, find the subarray with the largest sum, and return its sum.
 
  
 
 Example 1:
 
-Input: nums = [1,0,1,0,1], goal = 2
-Output: 4
-Explanation: The 4 subarrays are bolded and underlined below:
-[1,0,1,0,1]
-[1,0,1,0,1]
-[1,0,1,0,1]
-[1,0,1,0,1]
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+Explanation: The subarray [4,-1,2,1] has the largest sum 6.
 Example 2:
 
-Input: nums = [0,0,0,0,0], goal = 0
-Output: 15
+Input: nums = [1]
+Output: 1
+Explanation: The subarray [1] has the largest sum 1.
+Example 3:
+
+Input: nums = [5,4,-1,7,8]
+Output: 23
+Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
  
 
 Constraints:
 
-1 <= nums.length <= 3 * 104
-nums[i] is either 0 or 1.
-0 <= goal <= nums.length
+1 <= nums.length <= 105
+-104 <= nums[i] <= 104
+ 
 
-## problem link:https://leetcode.com/problems/binary-subarrays-with-sum/description/
+Follow up: If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
+
+## problem link:https://leetcode.com/problems/maximum-subarray/
 """
 
     # ---- NOTES template ----
