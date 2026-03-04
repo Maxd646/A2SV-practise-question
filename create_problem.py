@@ -12,22 +12,11 @@ def create_files(base, folder, filename, title, platform):
     solution_template = f"""# {title}
 # Platform: {platform}
 class Solution:
-    def shiftingLetters(self, s: str, shifts: List[List[int]]) -> str:
-        letters="abcdefghijklmnopqrstuvwxyz"
-        s=list(s)
-        aa=[0]*(len(s)+1)
-
-        for i, j, k in shifts:
-            if j<len(aa)-1:
-                aa[j+1]+=(1 if k==0 else -1)
-
-            aa[i]-=(1 if k==0 else -1)
-            
-        aa=list(accumulate(aa))  
-        ans=""
-        for i in range(len(s)):
-            ans+=letters[(aa[i]+letters.index(s[i]))%26]
-        return ans
+    def minStartValue(self, nums: List[int]) -> int:
+        nums=accumulate(nums)
+        aa=min(nums)
+        return 1-aa if aa<0 else 1
+    
 """
 
     # ---- README template ----
@@ -35,40 +24,45 @@ class Solution:
 
 ## Platform
 {platform}
-## 2381. Shifting Letters II
+## 1413. Minimum Value to Get Positive Step by Step Sum
 
-You are given a string s of lowercase English letters and a 2D integer array shifts where shifts[i] = [starti, endi, directioni]. For every i, shift the characters in s from the index starti to the index endi (inclusive) forward if directioni = 1, or shift the characters backward if directioni = 0.
+Given an array of integers nums, you start with an initial positive value startValue.
 
-Shifting a character forward means replacing it with the next letter in the alphabet (wrapping around so that 'z' becomes 'a'). Similarly, shifting a character backward means replacing it with the previous letter in the alphabet (wrapping around so that 'a' becomes 'z').
+In each iteration, you calculate the step by step sum of startValue plus elements in nums (from left to right).
 
-Return the final string after all such shifts to s are applied.
+Return the minimum positive value of startValue such that the step by step sum is never less than 1.
 
  
 
 Example 1:
 
-Input: s = "abc", shifts = [[0,1,0],[1,2,1],[0,2,1]]
-Output: "ace"
-Explanation: Firstly, shift the characters from index 0 to index 1 backward. Now s = "zac".
-Secondly, shift the characters from index 1 to index 2 forward. Now s = "zbd".
-Finally, shift the characters from index 0 to index 2 forward. Now s = "ace".
+Input: nums = [-3,2,-3,4,2]
+Output: 5
+Explanation: If you choose startValue = 4, in the third iteration your step by step sum is less than 1.
+step by step sum
+startValue = 4 | startValue = 5 | nums
+  (4 -3 ) = 1  | (5 -3 ) = 2    |  -3
+  (1 +2 ) = 3  | (2 +2 ) = 4    |   2
+  (3 -3 ) = 0  | (4 -3 ) = 1    |  -3
+  (0 +4 ) = 4  | (1 +4 ) = 5    |   4
+  (4 +2 ) = 6  | (5 +2 ) = 7    |   2
 Example 2:
 
-Input: s = "dztz", shifts = [[0,0,0],[1,1,1]]
-Output: "catz"
-Explanation: Firstly, shift the characters from index 0 to index 0 backward. Now s = "cztz".
-Finally, shift the characters from index 1 to index 1 forward. Now s = "catz".
+Input: nums = [1,2]
+Output: 1
+Explanation: Minimum start value should be positive. 
+Example 3:
+
+Input: nums = [1,-2,-3]
+Output: 5
  
 
 Constraints:
 
-1 <= s.length, shifts.length <= 5 * 104
-shifts[i].length == 3
-0 <= starti <= endi < s.length
-0 <= directioni <= 1
-s consists of lowercase English letters.
+1 <= nums.length <= 100
+-100 <= nums[i] <= 100
 
-## problem link:https://leetcode.com/problems/shifting-letters-ii/description/
+## problem link:https://leetcode.com/problems/minimum-value-to-get-positive-step-by-step-sum/description
 """
 
     # ---- NOTES template ----
