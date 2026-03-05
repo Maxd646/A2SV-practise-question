@@ -10,24 +10,28 @@ def create_files(base, folder, filename, title, platform):
 
     # ---- Solution template ----
     solution_template = f"""# {title}
-# Platform: {platform}
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
-    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        p=head
-        q=None
-        r=None
-        while p:
-           r=q
-           q=p
-           p=p.next
-           q.next=r     
+def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head or not head.next:
+            return head
 
-        return q
+        ohead = otail = head
+        ehead = etail = head.next
+
+        current = head.next.next
+        idx = 3 
+
+        while current:
+            if idx % 2 == 1:
+                otail.next = current
+                otail = otail.next
+            else:
+                etail.next = current
+                etail = etail.next
+            current = current.next
+            idx += 1
+        otail.next = ehead
+        etail.next = None
+        return head
 
 """
 
@@ -36,9 +40,15 @@ class Solution:
 
 ## Platform
 {platform}
-## 206. Reverse Linked List
+## 328. Odd Even Linked List
 
-Given the head of a singly linked list, reverse the list, and return the reversed list.
+Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.
+
+The first node is considered odd, and the second node is even, and so on.
+
+Note that the relative order inside both the even and odd groups should remain as it was in the input.
+
+You must solve the problem in O(1) extra space complexity and O(n) time complexity.
 
  
 
@@ -46,28 +56,20 @@ Example 1:
 
 
 Input: head = [1,2,3,4,5]
-Output: [5,4,3,2,1]
+Output: [1,3,5,2,4]
 Example 2:
 
 
-Input: head = [1,2]
-Output: [2,1]
-Example 3:
-
-Input: head = []
-Output: []
+Input: head = [2,1,3,5,6,4,7]
+Output: [2,3,6,7,1,5,4]
  
 
 Constraints:
 
-The number of nodes in the list is the range [0, 5000].
--5000 <= Node.val <= 5000
- 
+The number of nodes in the linked list is in the range [0, 104].
+-106 <= Node.val <= 106
 
-Follow up: A linked list can be reversed either iteratively or recursively. Could you implement both?
-
-
-## problem link:https://leetcode.com/problems/reverse-linked-list/description/
+## problem link:https://leetcode.com/problems/odd-even-linked-list/description/
 """
 
     # ---- NOTES template ----
