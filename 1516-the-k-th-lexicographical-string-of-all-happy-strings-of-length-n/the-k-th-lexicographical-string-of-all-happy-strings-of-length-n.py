@@ -1,18 +1,23 @@
 class Solution:
     def getHappyString(self, n: int, k: int) -> str:
-        res = []
+        if k > 3 * (2 ** (n - 1)):
+            return ""
 
-        def dfs(s):
-            if len(res) == k:
-                return
-            
-            if len(s) == n:
-                res.append(s)
-                return
+        ans = ""
+        prev = ""
 
+        for i in range(n):
             for c in "abc":
-                if not s or s[-1] != c:
-                    dfs(s + c)
+                if c == prev:
+                    continue
 
-        dfs("")
-        return res[k-1] if k <= len(res) else ""
+                count = 2 ** (n - i - 1)
+
+                if k > count:
+                    k -= count
+                else:
+                    ans += c
+                    prev = c
+                    break
+
+        return ans
