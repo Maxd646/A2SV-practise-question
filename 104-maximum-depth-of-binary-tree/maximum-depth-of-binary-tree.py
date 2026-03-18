@@ -5,12 +5,21 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def maxDepth(self, root: Optional[TreeNode]) -> int:        
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
-        x=self.maxDepth(root.left)
-        y=self.maxDepth(root.right)
-        print(1, max(x, y))
-        return 1+ max(x, y)
+        level=0       
+        q=deque()
+        q.append(root)
+        while q:
+            for i in range(len(q)):
+                node=q.popleft()
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            level+=1
+        return level
+
         
             
