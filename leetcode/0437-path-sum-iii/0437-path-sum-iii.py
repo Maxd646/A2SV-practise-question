@@ -4,25 +4,30 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
-        if not root:
-            return 0
-        
-        def help(root, targetSum):
-            if not root:
+        prefix = {0: 1}  
+
+        def dfs(node, curr_sum):
+            if not node:
                 return 0
-            res=0
-            if root.val == targetSum:
-                res+=1
-            newsum =  targetSum - root.val
-            res += help(root.left, newsum)
-            res += help(root.right, newsum)
-            return res
-        left = self.pathSum(root.left, targetSum)
-        right = self.pathSum(root.right, targetSum)
-        return help(root, targetSum)+ left + right
-        
 
+            curr_sum += node.val
+
+            
+            count = prefix.get(curr_sum - targetSum, 0)
+
+          
+            prefix[curr_sum] = prefix.get(curr_sum, 0) + 1
 
         
+            count += dfs(node.left, curr_sum)
+            count += dfs(node.right, curr_sum)
+
+         
+            prefix[curr_sum] -= 1
+
+            return count
+
+        return dfs(root, 0)
