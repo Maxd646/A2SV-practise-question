@@ -2,15 +2,16 @@ class Solution:
     def maxLength(self, nums: List[int]) -> int:
         n = len(nums)
         maxx =0
+        @lru_cache(None)
         def GCD(nums):
             return reduce(gcd, nums)
-
+        @lru_cache(None)
         def LCM(nums):
             return reduce(lcm, nums)
             
         for i in range(n):
             for j in range(i, n):
-                sub = nums[i:j+1]
+                sub = tuple(nums[i:j+1])
                 g= GCD(sub)
                 l = LCM(sub)
                 if prod(sub) == g*l:
