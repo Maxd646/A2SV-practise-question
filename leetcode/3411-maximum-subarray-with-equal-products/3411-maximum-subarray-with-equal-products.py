@@ -6,9 +6,7 @@ class Solution:
             return reduce(gcd, nums)
 
         def LCM(nums):
-            def rlcm(a, b):
-                return (a*b)//gcd(a, b)
-            return reduce(rlcm, nums)
+            return reduce(lcm, nums)
             
         for i in range(n):
             for j in range(i, n):
