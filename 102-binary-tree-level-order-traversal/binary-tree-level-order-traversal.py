@@ -11,10 +11,10 @@ class Solution:
         ans = []
         queue = deque([root])
         while queue:
-            level =[0]*len(queue)
+            level =[]
             for i in range(len(queue)):
                 node = queue.popleft()
-                level[i] =node.val
+                level.append(node.val)
                 if node.left:
                     queue.append(node.left)
                 if node.right:
