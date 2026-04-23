@@ -1,10 +1,17 @@
 class Solution:
     def topKFrequent(self, words: List[str], k: int) -> Lis(t[str]):
-        arr = sorted(Counter(words).items(), key = lambda x:(-x[1], x[0]))[:k]
+        arr = Counter(words)
+        bucket =[[] for _ in range(len(words)+1)]
+        for val, freq in arr.items():
+            bucket[freq].append(val)
         res = []
-        for word, _ in arr:
-            res.append(word)
-        return res
+        for freq in range(len(bucket)-1, 0, -1):
+            if bucket[freq]:
+                for word in sorted(bucket[freq]):
+                    res.append(word)
+                    if len(res)==k:
+                        return res
+        
         
 
         
