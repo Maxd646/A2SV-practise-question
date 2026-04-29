@@ -25,13 +25,9 @@ class Solution:
             for neg in graph[node]:
                 ancesstors[neg].add(node)
                 ancesstors[neg].update(ancesstors[node])
-        
+        print(ancesstors)
         for i in range(n):
-            for node in range(n):
-                if node == i:
-                    continue
-                if node in ancesstors[i]:
-                    res[i].append(node)
+            res[i]= sorted(list(ancesstors[i]))
 
         return res
         
