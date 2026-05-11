@@ -10,7 +10,7 @@ class Solution:
         if n >= 10**12:
             total += (min(n, 10**15 -1) - 10**12+ 1)*4
         if n >= 10**15:
-            total += (min(n , 10**18 -1) - 10**15 +1)*5
+            total +=5
         return total
 
         
