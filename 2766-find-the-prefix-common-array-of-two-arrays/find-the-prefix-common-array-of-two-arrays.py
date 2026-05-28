@@ -7,7 +7,7 @@ class Solution:
         for i in range(n):
             seen.add(A[i])
             seen2.add(B[i])
-            ans.append(len(list(seen&seen2)))
+            ans.append(len(seen&seen2))
         return ans
             
 
