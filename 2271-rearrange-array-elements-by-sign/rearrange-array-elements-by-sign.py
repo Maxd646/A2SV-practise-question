@@ -7,9 +7,5 @@ class Solution:
                 pos.append(num)
             else:
                 neg.append(num)
-        ans = []
-        for i in range(len(pos)):
-            ans.append(pos[i])
-            ans.append(neg[i])
-        return ans
+        return [x for x in itertools.chain(*zip(pos, neg))]
         
