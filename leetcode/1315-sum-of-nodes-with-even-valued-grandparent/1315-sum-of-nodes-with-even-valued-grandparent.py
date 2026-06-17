@@ -3,6 +3,7 @@ class Solution:
         if root and (not root.left and not root.right): return 0
         q= deque()
         q.append([root, None, None])
+        # m
         ans=0
         while q:
             r, p, gr= q.popleft()
