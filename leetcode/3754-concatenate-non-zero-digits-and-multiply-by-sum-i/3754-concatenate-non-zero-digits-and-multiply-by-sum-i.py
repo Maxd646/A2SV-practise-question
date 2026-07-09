@@ -1,14 +1,13 @@
 class Solution:
     def sumAndMultiply(self, n: int) -> int:
-        num = ""
-        n = str(n)
-        for ch in n:
-            if ch != "0":
-                num+=ch
-        summ = sum(map(int, str(num)))
-        if num:
-            return summ*int(num)
-        return 0
-        # n
+        x = 0
+        summ = 0
+        for y in str(n):
+            if y != "0":
+                summ+= int(y)
+                x = x*10+int(y)
+        return x*summ
+
+        
 
         
