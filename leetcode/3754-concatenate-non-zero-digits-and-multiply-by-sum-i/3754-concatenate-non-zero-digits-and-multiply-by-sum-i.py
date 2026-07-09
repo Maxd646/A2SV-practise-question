@@ -9,5 +9,6 @@ class Solution:
         if num:
             return summ*int(num)
         return 0
+        # n
 
         
