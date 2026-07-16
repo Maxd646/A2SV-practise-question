@@ -1,6 +1,4 @@
 class Solution:
     def gcdOfOddEvenSums(self, n: int) -> int:
-        odd = n * n 
-        even = odd + n
-        return math.gcd(odd, even)
+        return math.gcd(n*n, n*(n+1))
         
