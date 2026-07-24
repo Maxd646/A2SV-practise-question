@@ -16,6 +16,7 @@ class Solution:
             if seen[s2[left]]==0:
                 del seen[s2[left]]
             if seen==count:
+                # m
                 return True
         return False
 
