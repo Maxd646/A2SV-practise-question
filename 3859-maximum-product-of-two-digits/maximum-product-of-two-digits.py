@@ -1,5 +1,13 @@
 class Solution:
     def maxProduct(self, n: int) -> int:
-        num = sorted(map(int, list(str(n))), reverse = True)
-        return num[0]*num[1]
+        seen = list(map(int, str(n)))
+        first, second = 0, 0
+        for i in range(len(seen)):
+            if seen[i]>first:
+                second = first
+                first = seen[i]
+            elif seen[i]>second:
+                second = seen[i]
+        return second * first
+        
         
