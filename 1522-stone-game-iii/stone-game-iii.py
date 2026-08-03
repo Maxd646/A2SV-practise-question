@@ -1,0 +1,26 @@
+from typing import List
+
+class Solution:
+    def stoneGameIII(self, stoneValue: List[int]) -> str:
+
+        n = len(stoneValue)
+        dp = [0] * (n + 1)
+
+    
+        dp[n] = 0
+
+        for i in range(n - 1, -1, -1):
+            dp[i] = float("-inf")
+            take = 0
+
+            for j in range(3):
+                if i + j < n:
+                    take += stoneValue[i + j]
+                    dp[i] = max(dp[i], take - dp[i + j + 1])
+
+        if dp[0] > 0:
+            return "Alice"
+        elif dp[0] < 0:
+            return "Bob"
+        else:
+            return "Tie"
