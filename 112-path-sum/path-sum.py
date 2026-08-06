@@ -6,21 +6,22 @@
 #         self.right = right
 class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-        stack=[]
+        stack  = 0
         def pre(root, tr):
+            nonlocal stack
             if not root:
                 return False
-            stack.append(root.val)
+            stack += root.val
             if not root.left and not root.right:
-                if sum(stack)==tr:
+                if stack == tr:
                     return True
-                stack.pop()
+                stack -= root.val
                 return False
             if pre(root.left, tr):
                 return True 
             if pre(root.right, tr):
                 return True
-            stack.pop()
+            stack -= root.val
             return False
         return pre(root, targetSum )
         
