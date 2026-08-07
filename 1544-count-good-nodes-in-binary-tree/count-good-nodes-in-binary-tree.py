@@ -6,15 +6,16 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        stack =[]
+        res = 0 
         def helper(root, maxval):
+            nonlocal res
             if not root:
                 return 0
-            res = 1 if root.val>=maxval else 0
+            res += 1 if root.val>=maxval else 0
 
             maxval = max(root.val, maxval)
-            res += helper(root.left, maxval)
-            res += helper(root.right, maxval)
+            helper(root.left, maxval)
+            helper(root.right, maxval)
             return res
         return helper(root, root.val)
 
