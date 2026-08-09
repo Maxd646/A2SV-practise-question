@@ -4,10 +4,11 @@ class Solution:
         for i in range(2, 10):
             while temp % i == 0:
                 temp //= i
-
+            # hhh
         if temp > 1:
             return "-1"
-
+            # h
+        m = 0
         n = len(num)
         rem = [0] * (n + 1)
         rem[0] = t
