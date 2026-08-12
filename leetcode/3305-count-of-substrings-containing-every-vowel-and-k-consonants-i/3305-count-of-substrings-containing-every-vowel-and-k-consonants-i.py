@@ -14,7 +14,6 @@ class Solution:
             for i in range(len(word)):
                 if word[i] in Vowels:
                     last[word[i]] = i
-                if word[i] in Vowels:
                     if seen[word[i]] == 0:
                         Vowel += 1
                     seen[word[i]] += 1
