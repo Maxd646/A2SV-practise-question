@@ -3,17 +3,17 @@ class Solution:
         ans = 0
 
         left = 0
-        seen = Counter()
+        count = Counter()
 
         for i in range(len(nums)):
 
-            seen[nums[i]] += 1
+            count[nums[i]] += 1
 
-            if seen[nums[i]] >k:
+            if count[nums[i]] >k:
 
-                while seen[nums[i]] > k:
+                while count[nums[i]] > k:
 
-                    seen[nums[left]] -= 1
+                    count[nums[left]] -= 1
                     left += 1
 
             ans = max(ans, i-left+1)
