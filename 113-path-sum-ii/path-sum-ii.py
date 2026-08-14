@@ -15,16 +15,12 @@ class Solution:
             if not root.left and not root.right:
                 if sum(stack)==tr:
                     ans.append(stack[:])
-                    stack.pop()
-                    return 
                 stack.pop()
-                return False
-            if pre(root.left, tr):
-                return True 
-            if pre(root.right, tr):
-                return True
+                return 
+            pre(root.left, tr)
+            pre(root.right, tr)
             stack.pop()
-            return False
+            return 
         pre(root, targetSum )
             
         return ans
