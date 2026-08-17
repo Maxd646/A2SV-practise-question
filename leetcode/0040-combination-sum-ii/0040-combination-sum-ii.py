@@ -20,5 +20,5 @@ class Solution:
             dfs (index +1, path, summ)
         dfs(0, [], 0)
 
-        return list(set(tuple(sorted(num)) for num in ans))
+        return ans
         
