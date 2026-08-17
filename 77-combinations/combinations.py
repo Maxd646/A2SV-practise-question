@@ -1,22 +1,24 @@
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
-        ans= []
-        def backtracking(aa, comb):
-            if len(comb)==k:
-                ans.append(comb[:])
-                return 
 
-            for i in range(aa, n+1):
-                comb.append(i)
-                backtracking(i+1, comb)
-                comb.pop()
+        def backtrack(i, combination):
+            if len(combination) == k:
+                combinations.append(combination[:])
+                return
 
-        backtracking(1, [])
-        return ans 
-                
-
+            if i > n:
+                return
 
            
+            combination.append(i)
+            backtrack(i + 1, combination)
+            combination.pop()
+
+           
+            backtrack(i + 1, combination)
+        combinations = []
+        backtrack(1, [])
+        return combinations
+
+
             
-        
-        
