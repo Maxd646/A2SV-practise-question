@@ -1,33 +1,34 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        r = len(grid)
-        c = len(grid[0])
-        count = 0
-        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-        def inbound(row, col):
-            return (0 <= row < len(grid) and 0 <= col < len(grid[0])) and (grid[row][col]!="0")
-        def dfs(row, col):
-            if inbound(row, col) is False:
-                return
-            grid[row][col]  = "0"
-            for i, j in directions:
-                nr, nc= i+row, j+col
-                if inbound(nr, nc):
-                    dfs(nr, nc)
-        for i in range(r):
-            for j in range(c):
-                if grid[i][j] =="1":
-                    count+=1
+
+        n, m = len(grid), len(grid[0])
+        ans = 0
+    
+        def dfs(r, c):
+
+            if (r<0 or r>=n) or (c < 0 or c>=m) or grid[r][c] == "0":
+                return 
+
+            grid[r][c] ='0'
+
+            dfs(r+1, c)
+            dfs(r-1, c)
+            dfs(r, c+1)
+            dfs(r, c-1)
+
+        for i in range(n):
+            for j in range(m):
+
+                if grid[i][j] == '1':
+                    ans += 1
                     dfs(i, j)
-        return count
-            
+        return ans
+                
+
+         
 
 
+
+
+                
         
-
-
-
-
-
-
-
