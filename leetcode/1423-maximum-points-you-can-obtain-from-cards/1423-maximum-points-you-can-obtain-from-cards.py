@@ -1,23 +1,22 @@
 class Solution:
     def maxScore(self, cardPoints: List[int], k: int) -> int:
 
-        prefix = [0]+ list(accumulate(cardPoints))
+        left, right = 0, len(cardPoints)-k
+        total = sum(cardPoints[right:])
 
-        suffix = [0] + list(accumulate(cardPoints[::-1]))
+        ans = total
+
+        while right <len(cardPoints):
+
+            total += cardPoints[left] - cardPoints[right]
+            ans = max(ans, total)
+            left +=1
+            right += 1
+
+        return ans
+
+
         
-        if len(cardPoints)<=k:
-            return prefix[-1]
-        maxx = 0
-        n= len(cardPoints)-1
-      
-
-        for i in range(k+1):
-            maxx = max(maxx, prefix[i]+suffix[k-i])
-            
-
-        return maxx
-
-
 
 
         
