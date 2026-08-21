@@ -1,24 +1,26 @@
 class Solution:
     def getWinner(self, arr: List[int], k: int) -> int:
 
-        winner = arr[0]
-        wins = 0
-        for i in range(1, len(arr)):
-            if winner > arr[i]:
-                wins += 1
+        if k >= len(arr):
+            return max(arr)
+
+        queu = deque(arr)
+        seen = Counter()
+
+        while True:
+
+            if queu[0] > queu[1]:
+                winner = queu.popleft()
+                loser = queu.popleft()
+
             else:
-                winner = arr[i]
-                wins = 1
-            if wins >= k:
+                loser = queu.popleft()
+                winner = queu.popleft()
+
+            seen[winner] += 1
+
+            if seen[winner] >= k:
                 return winner
-        return winner
 
-
-
-        
-           
-        
-       
-
-        
-        
+            queu.appendleft(winner)
+            queu.append(loser)
