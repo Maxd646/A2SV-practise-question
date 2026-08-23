@@ -13,7 +13,7 @@ class Solution:
                 count += 1
                 end = min(end, final)
             else:
-                end = max(final, end)
+                end = final
 
         print(intervals)
 
