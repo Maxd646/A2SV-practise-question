@@ -1,23 +1,23 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
 
+
         n = len(nums)
-        memo =  {}
 
-        def maxval(i):
+        if n <= 2:
+            return max(nums)
 
-            if i== n-1:
-                return nums[i]
+        dp = [0]*n
+        dp[0] = nums[0]
+        dp[1] = max(nums[:2])
+        
+        for i in range(2, n):
 
-            if i == n-2:
-                return max(nums[n-1], nums[n-2])
+            dp[i] = max(dp[i-1], dp[i-2]+nums[i])
 
-            if i not in memo:
-                memo[i] = max(maxval(i+1), maxval(i+2)+nums[i])
+        return dp[n-1]
+        
 
-            return memo[i]
-
-        return maxval(0)
 
             
         
