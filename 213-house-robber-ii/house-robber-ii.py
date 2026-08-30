@@ -2,29 +2,28 @@ class Solution:
     def rob(self, nums: List[int]) -> int:
 
         n = len(nums)
-        dp = [0]*n
-        num1 = nums[:n-1]
 
         if n <= 3:
+            
             return max(nums)
 
-        dp[0] = num1[0]
-        dp[1] = max(num1[0], num1[1])
+        def dp(nums):
 
-        for i in range(2, n-1):
+            m =  n-1
+            dp = [0]*m
 
-            dp[i] = max(dp[i-1], dp[i-2]+num1[i])
+            if m <= 2:
 
-        num2 = nums[1:]
-        dp1 = [0]*n
-        dp1[0] = num2[0]
-        dp1[1] = max(num2[0], num2[1])
+                return max(nums)
 
-        for i in range(2, n-1):
-            
-            dp1[i] = max(dp1[i-1], dp1[i-2]+num2[i])
+            dp[0] = nums[0]
+            dp[1] = max(nums[0], nums[1])
+
+            for i in range(2, n-1):
+
+                dp[i] = max(dp[i-1], dp[i-2]+nums[i])
+
+            return dp[m-1]
         
-        return max(dp[n-2], dp1[n-2])
-
-
+        return max(dp(nums[1:]), dp(nums[:n-1]))
         
