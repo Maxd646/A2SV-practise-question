@@ -1,43 +1,57 @@
-class Manacher:
-    def __init__(self, s):
-        self.t = '#' + '#'.join(s) + '#'
-        n = len(self.t)
-        self.p = [0] * n
-        c = r = 0
-        for i in range(n):
-            if i < r:
-                self.p[i] = min(r - i, self.p[2 * c - i])
-            while i + self.p[i] + 1 < n and i - self.p[i] - 1 >= 0 and \
-                  self.t[i + self.p[i] + 1] == self.t[i - self.p[i] - 1]:
-                self.p[i] += 1
-            if i + self.p[i] > r:
-                c, r = i, i + self.p[i]
-
-    def getLongest(self, i, is_odd):
-        
-        idx = 2 * i + 1 if is_odd else 2 * i
-        return self.p[idx]
-
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        if not s: return ""
-        mob = Manacher(s)
+
+        ans = ""
         n = len(s)
-        maxLen = 1
-        bestStart = 0
 
-        for i in range(n):
-           
-            oddLen = mob.getLongest(i, 1)
-            if oddLen > maxLen:
-                maxLen = oddLen
-                bestStart = i - maxLen // 2
-
-          
-            if i > 0:
-                evenLen = mob.getLongest(i, 0)
-                if evenLen > maxLen:
-                    maxLen = evenLen
-                    bestStart = i - maxLen // 2
+        queue = deque()
         
-        return s[bestStart: bestStart + maxLen]
+        for i in range(n):
+
+            left, right = i, i
+
+            while left >= 0 and right < n and s[left] == s[right]:
+                
+                if left == right:
+                    queue.appendleft(s[left])
+                else:
+                    queue.appendleft(s[left])   
+                    queue.append(s[right])
+                left -= 1
+                right += 1
+
+            temp = "".join(list(queue))
+
+            queue = deque()
+            
+            if len(ans) < len(temp):
+
+                ans = temp
+
+            left, right = i, i+1
+
+            while left >= 0 and right < n and s[left] == s[right]:
+
+                queue.appendleft(s[left])
+                queue.append(s[right])
+                left -= 1
+                right += 1
+
+            temp = "".join(list(queue))
+
+            if len(ans) < len(temp):
+                ans = temp
+            
+            queue = deque()
+
+        return ans
+
+
+
+
+
+            
+
+            
+            
+        
