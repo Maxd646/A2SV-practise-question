@@ -1,23 +1,28 @@
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
+
+        left, right = 1, 1
         n = len(nums)
+        ans = -float("inf")
 
-        maxdp = [0] * n
-        mindp = [0] * n
+        for i in range(n):
 
-        maxdp[0] = nums[0]
-        mindp[0] = nums[0]
+            if left == 0:
+                left = 1
 
-        ans = nums[0]
+            if right == 0:
+                right = 1
 
-        for i in range(1, n):
+            left *= nums[i]
+            right *= nums[n-i-1]
+        
+            ans = max(ans, max(left, right))
+           
+        return ans 
+        
             
-            x = nums[i]
-
-            maxdp[i] = max(x, x * maxdp[i - 1], x * mindp[i - 1])
-
-            mindp[i] = min(x, x * maxdp[i - 1], x * mindp[i - 1])
-
-            ans = max(ans, maxdp[i])
-
-        return ans
+            
+                
+            
+            
+            
