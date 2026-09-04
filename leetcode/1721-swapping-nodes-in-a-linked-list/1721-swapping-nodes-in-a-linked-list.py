@@ -6,27 +6,21 @@
 class Solution:
     def swapNodes(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
 
-        ans  = []
+        first = head
 
-        curr = head
+        for _ in range(k-1):
+            first = first.next
         
-        while curr:
+        fast = first
+        second = head
 
-            ans.append(curr.val)
-            curr = curr.next
+        while fast.next:
 
-        ans[k-1], ans[-k] = ans[-k], ans[k-1]
-        head = ListNode(ans[0]) 
-        i = 1
-        curr = head
-    
-        while i < len(ans):
+            fast = fast.next
+            second = second.next
 
-            curr.next = ListNode(ans[i])
-            curr = curr.next
-            i += 1
-            
+        second.val, first.val = first.val, second.val
+
         return head
 
-      
-        
+
