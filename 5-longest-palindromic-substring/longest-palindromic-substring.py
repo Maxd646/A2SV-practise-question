@@ -1,57 +1,40 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
 
-        ans = ""
         n = len(s)
+       
+        if n < 2:
+            return s
+        dp = [[False]*n for _ in range(n)]
 
-        queue = deque()
-        
+        start, maxlen = 0, 1
+
         for i in range(n):
 
-            left, right = i, i
+            dp[i][i] = True
 
-            while left >= 0 and right < n and s[left] == s[right]:
-                
-                if left == right:
-                    queue.appendleft(s[left])
-                else:
-                    queue.appendleft(s[left])   
-                    queue.append(s[right])
-                left -= 1
-                right += 1
+        for i in range(n-1):
 
-            temp = "".join(list(queue))
+            if s[i] == s[i+1]:
 
-            queue = deque()
-            
-            if len(ans) < len(temp):
+                dp[i][i+1] = True
 
-                ans = temp
+            if dp[i][i+1]:
 
-            left, right = i, i+1
+                start, maxlen = i, 2
 
-            while left >= 0 and right < n and s[left] == s[right]:
+        for i in range(3, n+1):
 
-                queue.appendleft(s[left])
-                queue.append(s[right])
-                left -= 1
-                right += 1
+            for j in range(n-i+1):
 
-            temp = "".join(list(queue))
+                k = i+j-1
 
-            if len(ans) < len(temp):
-                ans = temp
-            
-            queue = deque()
+                if s[j] == s[k] and dp[j+1][k-1]:
 
-        return ans
+                    dp[j][k] = True
+                    start, maxlen = j, i
+
+        return s[start:start+maxlen]
 
 
-
-
-
-            
-
-            
-            
         
