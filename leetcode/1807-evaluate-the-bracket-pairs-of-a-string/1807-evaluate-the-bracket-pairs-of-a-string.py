@@ -1,36 +1,40 @@
 class Solution:
-    def evaluate(self, s: str, ke: List[List[str]]) -> str:
-        count = defaultdict(str)
-        for key, val in ke:
-            count[key] = val
-        seen = Counter()
-        flag = False
-        ans =""
-        key =""
+    def evaluate(self, s: str, knowledge: list[list[str]]) -> str:
+
+        seen = {word: val for word, val in knowledge}
+
+        res = ""
+
+        yes = False
+        key = ""
+
         for i in range(len(s)):
-            if s[i]=="(":
-                flag = True
-            elif s[i]==")":
-                flag = False
-                if count[key]:
-                    ans+=count[key]
-                else:
-                    ans+="?"
-                key =""
-            elif flag:
-                key+=s[i]
-            else:
-                ans+=s[i]
-        return ans
-        
-        
-        
-        
-       
-        
-        
-            
-        
+
+            if s[i] == ")":
+
+                res += seen.get(key, "?")
+                key = ""
+                yes = False
+                continue
+
+            if s[i] == "(":
+
+                yes = True
+                continue
+
+            if yes:
+
+                key += s[i]
+                continue
+
+            res += s[i]
+
+        return res
+
+
 
             
+
             
+
+        
