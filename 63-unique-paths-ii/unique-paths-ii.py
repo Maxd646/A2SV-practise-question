@@ -1,23 +1,31 @@
 class Solution:
     def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
 
-        memo = {}
         n, m = len(obstacleGrid), len(obstacleGrid[0])
+
+        dp = [[0]*(m) for _ in range(n)]
+ 
+        if obstacleGrid[0][0] == 1:
+            return 0
+
+        dp[0][0] = 1
+
+        for i in range(n):
+
+            for j in range(m):
+
+                if obstacleGrid[i][j] == 1:
+                    dp[i][j] = 0
+                    continue 
+
+                if i > 0:
+                    dp[i][j] += dp[i-1][j]
+
+                if j > 0:
+                    dp[i][j] += dp[i][j-1]
         
-        def dp(i, j):
 
-            if i>= n or j>= m:
-                return 0
+        return dp[n-1][m-1]
+                
 
-            if obstacleGrid[i][j] == 1:
-                return 0
 
-            if i == n-1 and j == m-1:
-                return 1
-
-            if (i, j) not in memo:
-                memo[(i, j)] = dp(i, j+1) + dp(i+1, j)
-
-            return memo[(i, j)]
-            
-        return dp(0, 0)
