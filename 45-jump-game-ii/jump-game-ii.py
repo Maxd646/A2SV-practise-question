@@ -1,20 +1,29 @@
 class Solution:
-    def jump(self, nums: List[int]) -> int:
-        if len(nums)==1:
-            return 0
-        long = 0
-        ans =0
-        far =0
-        for i in range(len(nums)):
-            far = max(far, i+nums[i])
-            if long >= len(nums) - 1:
-                    break
-            elif long==i:
-                ans+=1
-                long = far
-        return ans
+    def jump(self, nums: list[int]) -> int:
 
-    
+        if len(nums) == 1:
+            return 0
+
+        ans = 0
+        n  = len(nums)-1
+        maxx = 0
+        far = 0
+
+        for i in range(n+1):
+
+            far = max(nums[i]+i, far)
+
+            if  maxx >= n:
+                return ans 
+
+            if maxx == i :
+                ans+= 1
+                maxx = far
+
+        return ans 
+            
+
+
 
 
         
