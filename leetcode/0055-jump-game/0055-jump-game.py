@@ -3,15 +3,20 @@ class Solution:
 
 
         n = len(nums)
-        maxx = 0
+        dp = [False] *(n)
+        dp[0] = True
 
-        for i in range(n-1):
-            if max(nums[i], maxx-i) <=0:
-                return False
-            
-            maxx = max(nums[i]+i, maxx)
+        for i in range(n):
 
-        return True
+            if dp[i] == True and i + nums[i] >= n-1:
+                return True
+
+            if dp[i] == True:
+                
+                for j in range(i, nums[i]+i+1):
+                    dp[j] = True
+
+        return dp[n-1]
 
 
         
